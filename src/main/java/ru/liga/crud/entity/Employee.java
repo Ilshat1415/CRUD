@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "employees")
-public class Employee {
+public class Employee { //todo а без конструкторов работает ?
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

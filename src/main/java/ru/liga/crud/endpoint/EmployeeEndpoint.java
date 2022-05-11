@@ -27,8 +27,8 @@ public class EmployeeEndpoint {
         employeeService.saveEmployee(employee);
 
         ServiceStatus serviceStatus = new ServiceStatus();
-        serviceStatus.setStatus("SUCCESS");
-        serviceStatus.setMessage("Сотрудник успешно добавлен");
+        serviceStatus.setStatus("SUCCESS"); //todo вынести в константу
+        serviceStatus.setMessage("Сотрудник успешно добавлен"); //todo русские слова в коде плохая практика. ЛУчше использовать ResourceBundle посмотри как использовать в fccr класс MessageService
 
         AddEmployeeResponse response = new AddEmployeeResponse();
         response.setServiceStatus(serviceStatus);
@@ -56,8 +56,8 @@ public class EmployeeEndpoint {
         employeeService.updateEmployee(employee);
 
         ServiceStatus serviceStatus = new ServiceStatus();
-        serviceStatus.setStatus("SUCCESS");
-        serviceStatus.setMessage("Сотрудник успешно обновлён");
+        serviceStatus.setStatus("SUCCESS"); //todo вынести в константу
+        serviceStatus.setMessage("Сотрудник успешно обновлён"); //todo русские слова в коде плохая практика. ЛУчше использовать ResourceBundle посмотри как использовать в fccr класс MessageService
 
         UpdateEmployeeResponse response = new UpdateEmployeeResponse();
         response.setServiceStatus(serviceStatus);
@@ -72,8 +72,8 @@ public class EmployeeEndpoint {
         employeeService.deleteEmployee(request.getId());
 
         ServiceStatus serviceStatus = new ServiceStatus();
-        serviceStatus.setStatus("SUCCESS");
-        serviceStatus.setMessage("Сотрудник успешно удалён");
+        serviceStatus.setStatus("SUCCESS"); //todo вынести в константу
+        serviceStatus.setMessage("Сотрудник успешно удалён"); //todo русские слова в коде плохая практика. ЛУчше использовать ResourceBundle посмотри как использовать в fccr класс MessageService
 
         DeleteEmployeeResponse response = new DeleteEmployeeResponse();
         response.setServiceStatus(serviceStatus);

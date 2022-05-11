@@ -18,12 +18,15 @@ public class EmployeeService {
     public Employee findById(Long id) {
         Employee employee = employeeRepository.findById(id).orElse(null);
 
-        Assert.notNull(employee, "Сотрудник по id = " + id + " не найден");
+        //todo Assert в основном коде, вроде как, не принято писать. Напиши свои проверки)
+        Assert.notNull(employee, "Сотрудник по id = " + id + " не найден"); //todo русские слова в коде плохая практика. ЛУчше использовать ResourceBundle посмотри как использовать в fccr класс MessageService
 
         return employee;
     }
 
     public void saveEmployee(Employee employee) {
+        //todo Assert в основном коде, вроде как, не принято писать. Напиши свои проверки)
+        //todo русские слова в коде плохая практика. ЛУчше использовать ResourceBundle посмотри как использовать в fccr класс MessageService
         Assert.notNull(employee.getFirstName(), "Вы не указали обязательное поле FirstName");
         Assert.notNull(employee.getLastName(), "Вы не указали обязательное поле LastName");
         Assert.notNull(employee.getPosition(), "Вы не указали обязательное поле Position");
@@ -44,7 +47,8 @@ public class EmployeeService {
 
     private void positionCheck(Employee employee) {
         String position = employee.getPosition();
-
+        //todo Assert в основном коде, вроде как, не принято писать. Напиши свои проверки)
+        //todo русские слова в коде плохая практика. ЛУчше использовать ResourceBundle посмотри как использовать в fccr класс MessageService
         Assert.isTrue(
                 Arrays.stream(PositionsEnum.values())
                         .map(PositionsEnum::getPosition)
@@ -53,8 +57,8 @@ public class EmployeeService {
                 "Вы указали не подходящую позицию для сотрудника, доступны следующие позиции:\n" +
                         "Tester, Developer, TeamLead, Manager"
         );
-
-        if (position.equals(PositionsEnum.TESTER.getPosition())) {
+        //todo огромный if. можно разбить на приватные методы
+        if (position.equals(PositionsEnum.TESTER.getPosition())) { //todo можно сделать импорты и убрать PositionsEnum
             Assert.isTrue(
                     employee.getSalary() > PositionsEnum.TESTER.getSalaryMin() && employee.getSalary() > PositionsEnum.TESTER.getSalaryMax(),
                     "У тестера зарплата должна быть в диапазоне от 25К до 150К, в запросе прислали " + employee.getSalary()
