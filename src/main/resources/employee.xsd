@@ -52,6 +52,7 @@
     <xs:element name="getEmployeeByIdResponse">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="serviceStatus" type="tns:serviceStatus"/>
                 <xs:element name="employeeInfo" type="tns:employeeInfo"/>
             </xs:sequence>
         </xs:complexType>

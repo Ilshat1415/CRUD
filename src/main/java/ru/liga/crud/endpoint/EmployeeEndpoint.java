@@ -16,21 +16,31 @@ import ru.soap.interfaces.*;
 @RequiredArgsConstructor
 public class EmployeeEndpoint {
     private static final String NAMESPACE_URI = "http://interfaces.soap.ru";
+    private static final String STATUS_SUCCESS = "SUCCESS";
+    private static final String STATUS_PROBLEM = "PROBLEM";
 
     private final EmployeeService employeeService;
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "addEmployeeRequest")
     @ResponsePayload
     public AddEmployeeResponse addEmployee(@RequestPayload AddEmployeeRequest request) {
-        Employee employee = new Employee();
-        BeanUtils.copyProperties(request.getEmployeeInfo(), employee);
-        employeeService.saveEmployee(employee);
-
-        ServiceStatus serviceStatus = new ServiceStatus();
-        serviceStatus.setStatus("SUCCESS"); //todo вынести в константу
-        serviceStatus.setMessage("Сотрудник успешно добавлен"); //todo русские слова в коде плохая практика. ЛУчше использовать ResourceBundle посмотри как использовать в fccr класс MessageService
-
         AddEmployeeResponse response = new AddEmployeeResponse();
+        ServiceStatus serviceStatus = new ServiceStatus();
+        Employee employee = new Employee();
+
+        BeanUtils.copyProperties(request.getEmployeeInfo(), employee);
+
+        try {
+            employeeService.saveEmployee(employee);
+
+            serviceStatus.setStatus(STATUS_SUCCESS);
+            serviceStatus.setMessage("Employee added");
+
+        } catch (IllegalArgumentException e) {
+            serviceStatus.setStatus(STATUS_PROBLEM);
+            serviceStatus.setMessage(e.getMessage());
+        }
+
         response.setServiceStatus(serviceStatus);
 
         return response;
@@ -39,11 +49,23 @@ public class EmployeeEndpoint {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getEmployeeByIdRequest")
     @ResponsePayload
     public GetEmployeeByIdResponse getEmployeeById(@RequestPayload GetEmployeeByIdRequest request) {
-        EmployeeInfo employeeInfo = new EmployeeInfo();
-        BeanUtils.copyProperties(employeeService.findById(request.getId()), employeeInfo);
-
         GetEmployeeByIdResponse response = new GetEmployeeByIdResponse();
-        response.setEmployeeInfo(employeeInfo);
+        EmployeeInfo employeeInfo = new EmployeeInfo();
+        ServiceStatus serviceStatus = new ServiceStatus();
+
+        try {
+            BeanUtils.copyProperties(employeeService.findById(request.getId()), employeeInfo);
+            response.setEmployeeInfo(employeeInfo);
+
+            serviceStatus.setStatus(STATUS_SUCCESS);
+            serviceStatus.setMessage("Employee found");
+
+        } catch (IllegalArgumentException e) {
+            serviceStatus.setStatus(STATUS_PROBLEM);
+            serviceStatus.setMessage(e.getMessage());
+        }
+
+        response.setServiceStatus(serviceStatus);
 
         return response;
     }
@@ -51,17 +73,24 @@ public class EmployeeEndpoint {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateEmployeeRequest")
     @ResponsePayload
     public UpdateEmployeeResponse updateEmployee(@RequestPayload UpdateEmployeeRequest request) {
+        UpdateEmployeeResponse response = new UpdateEmployeeResponse();
+        ServiceStatus serviceStatus = new ServiceStatus();
         Employee employee = new Employee();
         BeanUtils.copyProperties(request.getEmployeeInfo(), employee);
-        employeeService.updateEmployee(employee);
 
-        ServiceStatus serviceStatus = new ServiceStatus();
-        serviceStatus.setStatus("SUCCESS"); //todo вынести в константу
-        serviceStatus.setMessage("Сотрудник успешно обновлён"); //todo русские слова в коде плохая практика. ЛУчше использовать ResourceBundle посмотри как использовать в fccr класс MessageService
+        try {
+            employeeService.updateEmployee(employee);
+            response.setEmployeeInfo(request.getEmployeeInfo());
 
-        UpdateEmployeeResponse response = new UpdateEmployeeResponse();
+            serviceStatus.setStatus(STATUS_SUCCESS);
+            serviceStatus.setMessage("Employee updated");
+
+        } catch (IllegalArgumentException e) {
+            serviceStatus.setStatus(STATUS_PROBLEM);
+            serviceStatus.setMessage(e.getMessage());
+        }
+
         response.setServiceStatus(serviceStatus);
-        response.setEmployeeInfo(request.getEmployeeInfo());
 
         return response;
     }
@@ -69,13 +98,20 @@ public class EmployeeEndpoint {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteEmployeeRequest")
     @ResponsePayload
     public DeleteEmployeeResponse deleteEmployee(@RequestPayload DeleteEmployeeRequest request) {
-        employeeService.deleteEmployee(request.getId());
-
-        ServiceStatus serviceStatus = new ServiceStatus();
-        serviceStatus.setStatus("SUCCESS"); //todo вынести в константу
-        serviceStatus.setMessage("Сотрудник успешно удалён"); //todo русские слова в коде плохая практика. ЛУчше использовать ResourceBundle посмотри как использовать в fccr класс MessageService
-
         DeleteEmployeeResponse response = new DeleteEmployeeResponse();
+        ServiceStatus serviceStatus = new ServiceStatus();
+
+        try {
+            employeeService.deleteEmployee(request.getId());
+
+            serviceStatus.setStatus(STATUS_SUCCESS);
+            serviceStatus.setMessage("Employee removed");
+
+        } catch (IllegalArgumentException e) {
+            serviceStatus.setStatus(STATUS_PROBLEM);
+            serviceStatus.setMessage(e.getMessage());
+        }
+
         response.setServiceStatus(serviceStatus);
 
         return response;
