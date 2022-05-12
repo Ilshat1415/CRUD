@@ -1,11 +1,13 @@
 package ru.liga.crud.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import ru.liga.crud.checker.EmployeeChecker;
 import ru.liga.crud.entity.Employee;
 import ru.liga.crud.exception.InvalidFieldException;
 import ru.liga.crud.type.Position;
 
+@Service
 @RequiredArgsConstructor
 public class ValidatorService {
     private final EmployeeChecker employeeChecker;

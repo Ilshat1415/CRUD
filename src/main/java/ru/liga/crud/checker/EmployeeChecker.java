@@ -1,11 +1,13 @@
 package ru.liga.crud.checker;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import ru.liga.crud.entity.Employee;
 import ru.liga.crud.exception.InvalidFieldException;
 import ru.liga.crud.service.ResourceBundleService;
 import ru.liga.crud.type.Position;
 
+@Component
 @RequiredArgsConstructor
 public class EmployeeChecker {
     private static final ResourceBundleService resourceBundleService = new ResourceBundleService();
