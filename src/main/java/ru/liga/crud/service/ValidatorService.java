@@ -5,7 +5,7 @@ import ru.liga.crud.entity.Employee;
 import ru.liga.crud.entity.PositionsEnum;
 
 @Service
-public class ValidatorService {
+public class ValidatorService { //todo можно обойтись без бина ?
     public void validate(Employee employee) throws IllegalArgumentException {
         checkRequiredFields(employee);
         PositionsEnum position = PositionsEnum.getValue(employee.getPosition());
@@ -31,9 +31,9 @@ public class ValidatorService {
             throw new IllegalArgumentException(String.format("Id = %d not found", id));
         }
     }
-
+    //todo не нравится что много текста в коде можно ли сообщения вынести ?
     private void checkRequiredFields(Employee employee) throws IllegalArgumentException {
-        if (employee.getFirstName() == null
+        if (employee.getFirstName() == null //todo возможно ли, что employee = null. И тут вылетит NPE ?
                 || employee.getLastName() == null
                 || employee.getPosition() == null) {
             throw new IllegalArgumentException("Fields FirstName, LastName, Position are mandatory");
@@ -42,7 +42,7 @@ public class ValidatorService {
 
     private void checkSalary(PositionsEnum position, int salary) throws IllegalArgumentException {
         if (salary < position.getSalaryMin() || salary > position.getSalaryMax()) {
-            throw new IllegalArgumentException(String.format(
+            throw new IllegalArgumentException(String.format( //todo зачем кидаешь Runtime. ЛУчше написать свое исключение Checked
                     "The %s must have a salary between %d and %d, requested: %d",
                     position.getPosition(),
                     position.getSalaryMin(),
