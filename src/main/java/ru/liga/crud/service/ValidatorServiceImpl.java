@@ -5,14 +5,18 @@ import org.springframework.stereotype.Service;
 import ru.liga.crud.checker.EmployeeChecker;
 import ru.liga.crud.entity.Employee;
 import ru.liga.crud.exception.InvalidFieldException;
+import ru.liga.crud.exception.NullEmployeeException;
+import ru.liga.crud.interfaces.ValidatorService;
 import ru.liga.crud.type.Position;
 
 @Service
 @RequiredArgsConstructor
-public class ValidatorService { //todo добавить интерфейс и ис пользователь через интерфейс
-    private final EmployeeChecker employeeChecker;
+public class ValidatorServiceImpl implements ValidatorService {
+    //todo добавить интерфейс и ис пользователь через интерфейс
+    // done
+    private final EmployeeChecker employeeChecker = new EmployeeChecker();
 
-    public void validate(Employee employee) throws InvalidFieldException {
+    public void validate(Employee employee) throws InvalidFieldException, NullEmployeeException {
         employeeChecker.checkEmployeeForNull(employee);
 
         employeeChecker.checkRequiredFields(employee);

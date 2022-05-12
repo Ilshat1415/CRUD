@@ -30,7 +30,7 @@ public enum Position {
             return MANAGER;
         } else {
             throw new InvalidFieldException(String.format(
-                    resourceBundleService.getStringMessageByKey("invalidPosition"),
+                    resourceBundleService.getMessage("invalidPosition"),
                     position
             ));
         }

@@ -5,13 +5,18 @@ import org.springframework.stereotype.Service;
 import ru.liga.crud.checker.EmployeeChecker;
 import ru.liga.crud.entity.Employee;
 import ru.liga.crud.exception.InvalidFieldException;
+import ru.liga.crud.exception.NullEmployeeException;
 import ru.liga.crud.repository.EmployeeRepository;
+import ru.liga.crud.interfaces.EmployeeService;
+import ru.liga.crud.interfaces.ValidatorService;
 
 @Service
 @RequiredArgsConstructor
-public class EmployeeService { //todo добавить интерфейс и ис пользователь через интерфейс
+public class EmployeeServiceImpl implements EmployeeService {
+    //todo добавить интерфейс и ис пользователь через интерфейс
+    // done
+    private final EmployeeChecker employeeChecker = new EmployeeChecker();
     private final EmployeeRepository employeeRepository;
-    private final EmployeeChecker employeeChecker;
     private final ValidatorService validatorService;
 
     public Employee findById(Long id) throws InvalidFieldException {
@@ -21,12 +26,12 @@ public class EmployeeService { //todo добавить интерфейс и и�
         return employee;
     }
 
-    public void saveEmployee(Employee employee) throws InvalidFieldException {
+    public void saveEmployee(Employee employee) throws InvalidFieldException, NullEmployeeException {
         validatorService.validate(employee);
         employeeRepository.save(employee);
     }
 
-    public void updateEmployee(Employee employee) throws InvalidFieldException {
+    public void updateEmployee(Employee employee) throws InvalidFieldException, NullEmployeeException {
         findById(employee.getId());
         saveEmployee(employee);
     }

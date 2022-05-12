@@ -9,7 +9,8 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import ru.liga.crud.entity.Employee;
 import ru.liga.crud.exception.InvalidFieldException;
-import ru.liga.crud.service.EmployeeService;
+import ru.liga.crud.exception.NullEmployeeException;
+import ru.liga.crud.interfaces.EmployeeService;
 import ru.soap.interfaces.*;
 
 
@@ -37,7 +38,7 @@ public class EmployeeEndpoint {
             serviceStatus.setStatus(STATUS_SUCCESS);
             serviceStatus.setMessage("Employee added");
 
-        } catch (InvalidFieldException e) {
+        } catch (InvalidFieldException | NullEmployeeException e) {
             serviceStatus.setStatus(STATUS_PROBLEM);
             serviceStatus.setMessage(e.getMessage());
         }
@@ -86,7 +87,7 @@ public class EmployeeEndpoint {
             serviceStatus.setStatus(STATUS_SUCCESS);
             serviceStatus.setMessage("Employee updated");
 
-        } catch (InvalidFieldException e) {
+        } catch (InvalidFieldException | NullEmployeeException e) {
             serviceStatus.setStatus(STATUS_PROBLEM);
             serviceStatus.setMessage(e.getMessage());
         }
