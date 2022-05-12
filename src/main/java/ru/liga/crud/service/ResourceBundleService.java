@@ -1,7 +1,5 @@
 package ru.liga.crud.service;
 
-import org.springframework.stereotype.Service;
-
 import java.util.ResourceBundle;
 
 public class ResourceBundleService {
