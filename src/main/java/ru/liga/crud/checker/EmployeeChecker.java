@@ -7,23 +7,15 @@ import ru.liga.crud.exception.InvalidFieldException;
 import ru.liga.crud.service.ResourceBundleService;
 import ru.liga.crud.type.Position;
 
-@Component
+@Component //todo Можно сделать не бином
 @RequiredArgsConstructor
 public class EmployeeChecker {
     private static final ResourceBundleService resourceBundleService = new ResourceBundleService();
-    //todo лучше писать полное название переменной
-    // done
-
     public void checkEmployeeForNull(Employee employee) {
         if (employee == null) {
-            //todo вкусовщина, но я бы сделал отдельный приватный метод
-            // done
-            throw new IllegalArgumentException("Employee null");
+            throw new IllegalArgumentException("Employee null"); //todo сделай свой Exception + текст в Bundle
         }
     }
-
-    //todo вынеси чекеры в отдельный класс и в отдельный пакет checker
-    // done
     public void checkId(Long id, Employee employee) throws InvalidFieldException {
         if (employee == null) {
             throw new InvalidFieldException(String.format(
@@ -32,9 +24,6 @@ public class EmployeeChecker {
             ));
         }
     }
-
-    //todo не нравится что много текста в коде можно ли сообщения вынести ?
-    // done
     public void checkRequiredFields(Employee employee) throws InvalidFieldException {
         if (employee.getFirstName() == null
                 || employee.getLastName() == null

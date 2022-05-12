@@ -9,7 +9,7 @@ import ru.liga.crud.repository.EmployeeRepository;
 
 @Service
 @RequiredArgsConstructor
-public class EmployeeService {
+public class EmployeeService { //todo добавить интерфейс и ис пользователь через интерфейс
     private final EmployeeRepository employeeRepository;
     private final EmployeeChecker employeeChecker;
     private final ValidatorService validatorService;

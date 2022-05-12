@@ -8,8 +8,6 @@ import ru.liga.crud.service.ResourceBundleService;
 @Getter
 @RequiredArgsConstructor
 public enum Position {
-    //Todo название. Position в отдельный пакет type
-    // done
     TESTER("Tester", 25000, 150000),
     DEVELOPER("Developer", 40000, 400000),
     TEAM_LEAD("Team_Lead", 150000, 400000),
