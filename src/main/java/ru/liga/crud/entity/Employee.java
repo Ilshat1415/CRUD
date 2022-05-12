@@ -10,9 +10,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "employees")
 public class Employee {
-    //todo а без конструкторов работает ?
-    // done
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

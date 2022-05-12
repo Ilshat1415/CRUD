@@ -8,14 +8,12 @@ import ru.liga.crud.entity.PositionsEnum;
 import java.util.ResourceBundle;
 
 public class ValidatorService {
-    private static final ResourceBundle rb = ResourceBundle.getBundle("text");
+    //todo название файла "text" не очень. Лучше назвать по тому что содержит
+    // + он используется в нескольких местах лучше вынести в отдельный класс по работе с Bundle
+    private static final ResourceBundle rb = ResourceBundle.getBundle("text"); //todo лучше писать полное название переменной
 
-    //todo можно обойтись без бина ?
-    // done
     public void validate(Employee employee) throws InvalidFieldException {
-        //todo возможно ли, что employee = null. И тут вылетит NPE ?
-        // done
-        if (employee == null) {
+        if (employee == null) { //todo вкусовщина, но я бы сделал отдельный приватный метод
             throw new IllegalArgumentException("Employee null");
         }
 
@@ -38,6 +36,7 @@ public class ValidatorService {
         }
     }
 
+    //todo вынеси чекеры в отдельный класс и в отдельный пакет checker
     public void checkId(Long id, Employee employee) throws IdNotFoundException {
         if (employee == null) {
             throw new IdNotFoundException(String.format(rb.getString("invalidId"), id));
@@ -57,8 +56,6 @@ public class ValidatorService {
     private void checkSalary(PositionsEnum position, int salary) throws InvalidFieldException {
         if (salary < position.getSalaryMin() || salary > position.getSalaryMax()) {
             throw new InvalidFieldException(String.format(
-                    //todo зачем кидаешь Runtime. ЛУчше написать свое исключение Checked
-                    // done
                     rb.getString("invalidSalary"),
                     position.getPosition(),
                     position.getSalaryMin(),
