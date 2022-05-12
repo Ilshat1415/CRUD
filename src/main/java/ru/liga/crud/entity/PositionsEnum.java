@@ -2,6 +2,9 @@ package ru.liga.crud.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import ru.exception.InvalidFieldException;
+
+import java.util.ResourceBundle;
 
 @Getter
 @RequiredArgsConstructor
@@ -14,8 +17,9 @@ public enum PositionsEnum {
     private final String position;
     private final int salaryMin;
     private final int salaryMax;
+    private static final ResourceBundle rb = ResourceBundle.getBundle("text");
 
-    public static PositionsEnum getValue(String position) throws IllegalArgumentException {
+    public static PositionsEnum getValue(String position) throws InvalidFieldException {
         if (TESTER.position.equals(position)) {
             return TESTER;
         } else if (DEVELOPER.position.equals(position)) {
@@ -25,8 +29,8 @@ public enum PositionsEnum {
         } else if (MANAGER.position.equals(position)) {
             return MANAGER;
         } else {
-            throw new IllegalArgumentException(String.format(
-                    "Position %s is not supported, available positions are: Tester, Developer, TeamLead, Manager",
+            throw new InvalidFieldException(String.format(
+                    rb.getString("invalidPosition"),
                     position
             ));
         }

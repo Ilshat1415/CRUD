@@ -1,12 +1,24 @@
 package ru.liga.crud.service;
 
-import org.springframework.stereotype.Service;
+import ru.exception.IdNotFoundException;
+import ru.exception.InvalidFieldException;
 import ru.liga.crud.entity.Employee;
 import ru.liga.crud.entity.PositionsEnum;
 
-@Service
-public class ValidatorService { //todo можно обойтись без бина ?
-    public void validate(Employee employee) throws IllegalArgumentException {
+import java.util.ResourceBundle;
+
+public class ValidatorService {
+    private static final ResourceBundle rb = ResourceBundle.getBundle("text");
+
+    //todo можно обойтись без бина ?
+    // done
+    public void validate(Employee employee) throws InvalidFieldException {
+        //todo возможно ли, что employee = null. И тут вылетит NPE ?
+        // done
+        if (employee == null) {
+            throw new IllegalArgumentException("Employee null");
+        }
+
         checkRequiredFields(employee);
         PositionsEnum position = PositionsEnum.getValue(employee.getPosition());
         checkSalary(position, employee.getSalary());
@@ -26,24 +38,28 @@ public class ValidatorService { //todo можно обойтись без бин
         }
     }
 
-    public void checkId(Long id, Employee employee) throws IllegalArgumentException {
+    public void checkId(Long id, Employee employee) throws IdNotFoundException {
         if (employee == null) {
-            throw new IllegalArgumentException(String.format("Id = %d not found", id));
-        }
-    }
-    //todo не нравится что много текста в коде можно ли сообщения вынести ?
-    private void checkRequiredFields(Employee employee) throws IllegalArgumentException {
-        if (employee.getFirstName() == null //todo возможно ли, что employee = null. И тут вылетит NPE ?
-                || employee.getLastName() == null
-                || employee.getPosition() == null) {
-            throw new IllegalArgumentException("Fields FirstName, LastName, Position are mandatory");
+            throw new IdNotFoundException(String.format(rb.getString("invalidId"), id));
         }
     }
 
-    private void checkSalary(PositionsEnum position, int salary) throws IllegalArgumentException {
+    //todo не нравится что много текста в коде можно ли сообщения вынести ?
+    // done
+    private void checkRequiredFields(Employee employee) throws InvalidFieldException {
+        if (employee.getFirstName() == null
+                || employee.getLastName() == null
+                || employee.getPosition() == null) {
+            throw new InvalidFieldException(rb.getString("invalidRequiredFields"));
+        }
+    }
+
+    private void checkSalary(PositionsEnum position, int salary) throws InvalidFieldException {
         if (salary < position.getSalaryMin() || salary > position.getSalaryMax()) {
-            throw new IllegalArgumentException(String.format( //todo зачем кидаешь Runtime. ЛУчше написать свое исключение Checked
-                    "The %s must have a salary between %d and %d, requested: %d",
+            throw new InvalidFieldException(String.format(
+                    //todo зачем кидаешь Runtime. ЛУчше написать свое исключение Checked
+                    // done
+                    rb.getString("invalidSalary"),
                     position.getPosition(),
                     position.getSalaryMin(),
                     position.getSalaryMax(),
@@ -52,39 +68,31 @@ public class ValidatorService { //todo можно обойтись без бин
         }
     }
 
-    private void checkTesterFields(Employee employee) throws IllegalArgumentException {
+    private void checkTesterFields(Employee employee) throws InvalidFieldException {
         if (employee.getNumberOfSubordinates() != null || employee.getProgrammingLanguage() != null) {
-            throw new IllegalArgumentException("For the tester position, fields ProgrammingLanguage, NumberOfSubordinates must be empty");
+            throw new InvalidFieldException(rb.getString("invalidTesterFields"));
         }
     }
 
-    private void checkDeveloperFields(Employee employee) throws IllegalArgumentException {
-        if (employee.getNumberOfSubordinates() != null) {
-            throw new IllegalArgumentException("For the developer position, field NumberOfSubordinates must be empty");
-        }
-
-        if (employee.getProgrammingLanguage() == null) {
-            throw new IllegalArgumentException("For the developer position, field ProgrammingLanguage are mandatory");
+    private void checkDeveloperFields(Employee employee) throws InvalidFieldException {
+        if (employee.getNumberOfSubordinates() != null || employee.getProgrammingLanguage() == null) {
+            throw new InvalidFieldException(rb.getString("invalidDeveloperFields"));
         }
     }
 
-    private void checkTeamLeadFields(Employee employee) throws IllegalArgumentException {
-        if (employee.getProgrammingLanguage() != null) {
-            throw new IllegalArgumentException("For the team lead position, field ProgrammingLanguage must be empty");
-        }
-
-        if (employee.getTelephoneNumber() == null || employee.getNumberOfSubordinates() == null) {
-            throw new IllegalArgumentException("For the team lead position, fields TelephoneNumber, NumberOfSubordinates are mandatory");
+    private void checkTeamLeadFields(Employee employee) throws InvalidFieldException {
+        if (employee.getProgrammingLanguage() != null
+                || employee.getTelephoneNumber() == null
+                || employee.getNumberOfSubordinates() == null) {
+            throw new InvalidFieldException(rb.getString("invalidTeamLeadFields"));
         }
     }
 
-    private void checkManagerFields(Employee employee) throws IllegalArgumentException {
-        if (employee.getProgrammingLanguage() != null) {
-            throw new IllegalArgumentException("For the developer position, field ProgrammingLanguage must be empty");
-        }
-
-        if (employee.getTelephoneNumber() == null || employee.getEmail() == null) {
-            throw new IllegalArgumentException("For the developer position, fields TelephoneNumber, Email are mandatory");
+    private void checkManagerFields(Employee employee) throws InvalidFieldException {
+        if (employee.getProgrammingLanguage() != null
+                || employee.getTelephoneNumber() == null
+                || employee.getEmail() == null) {
+            throw new InvalidFieldException(rb.getString("invalidManagerFields"));
         }
     }
 }

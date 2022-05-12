@@ -9,7 +9,9 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "employees")
-public class Employee { //todo а без конструкторов работает ?
+public class Employee {
+    //todo а без конструкторов работает ?
+    // done
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
