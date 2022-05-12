@@ -2,20 +2,21 @@ package ru.liga.crud.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.exception.IdNotFoundException;
-import ru.exception.InvalidFieldException;
+import ru.liga.crud.checker.EmployeeChecker;
 import ru.liga.crud.entity.Employee;
+import ru.liga.crud.exception.InvalidFieldException;
 import ru.liga.crud.repository.EmployeeRepository;
 
 @Service
 @RequiredArgsConstructor
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
-    private final ValidatorService validatorService = new ValidatorService();
+    private final EmployeeChecker employeeChecker;
+    private final ValidatorService validatorService;
 
-    public Employee findById(Long id) throws IdNotFoundException {
+    public Employee findById(Long id) throws InvalidFieldException {
         Employee employee = employeeRepository.findById(id).orElse(null);
-        validatorService.checkId(id, employee);
+        employeeChecker.checkId(id, employee);
 
         return employee;
     }
@@ -25,12 +26,12 @@ public class EmployeeService {
         employeeRepository.save(employee);
     }
 
-    public void updateEmployee(Employee employee) throws InvalidFieldException, IdNotFoundException {
+    public void updateEmployee(Employee employee) throws InvalidFieldException {
         findById(employee.getId());
         saveEmployee(employee);
     }
 
-    public void deleteEmployee(Long id) throws InvalidFieldException, IdNotFoundException {
+    public void deleteEmployee(Long id) throws InvalidFieldException {
         findById(id);
         employeeRepository.deleteById(id);
     }

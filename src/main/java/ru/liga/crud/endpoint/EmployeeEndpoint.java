@@ -7,9 +7,8 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import ru.exception.IdNotFoundException;
-import ru.exception.InvalidFieldException;
 import ru.liga.crud.entity.Employee;
+import ru.liga.crud.exception.InvalidFieldException;
 import ru.liga.crud.service.EmployeeService;
 import ru.soap.interfaces.*;
 
@@ -62,7 +61,7 @@ public class EmployeeEndpoint {
             serviceStatus.setStatus(STATUS_SUCCESS);
             serviceStatus.setMessage("Employee found");
 
-        } catch (IdNotFoundException e) {
+        } catch (InvalidFieldException e) {
             serviceStatus.setStatus(STATUS_PROBLEM);
             serviceStatus.setMessage(e.getMessage());
         }
@@ -87,7 +86,7 @@ public class EmployeeEndpoint {
             serviceStatus.setStatus(STATUS_SUCCESS);
             serviceStatus.setMessage("Employee updated");
 
-        } catch (InvalidFieldException | IdNotFoundException e) {
+        } catch (InvalidFieldException e) {
             serviceStatus.setStatus(STATUS_PROBLEM);
             serviceStatus.setMessage(e.getMessage());
         }
@@ -109,7 +108,7 @@ public class EmployeeEndpoint {
             serviceStatus.setStatus(STATUS_SUCCESS);
             serviceStatus.setMessage("Employee removed");
 
-        } catch (InvalidFieldException | IdNotFoundException e) {
+        } catch (InvalidFieldException e) {
             serviceStatus.setStatus(STATUS_PROBLEM);
             serviceStatus.setMessage(e.getMessage());
         }
