@@ -7,8 +7,6 @@ import ru.liga.crud.exception.NullEmployeeException;
 import ru.liga.crud.service.ResourceBundleService;
 import ru.liga.crud.type.Position;
 
-//todo Можно сделать не бином
-// done
 @RequiredArgsConstructor
 public class EmployeeChecker {
     private static final ResourceBundleService resourceBundleService = new ResourceBundleService();
@@ -16,17 +14,12 @@ public class EmployeeChecker {
     public void checkEmployeeForNull(Employee employee) throws NullEmployeeException {
         if (employee == null) {
             throw new NullEmployeeException(resourceBundleService.getMessage("invalidEmployee"));
-            //todo сделай свой Exception + текст в Bundle
-            // done
         }
     }
 
     public void checkId(Long id, Employee employee) throws InvalidFieldException {
         if (employee == null) {
-            throw new InvalidFieldException(String.format(
-                    resourceBundleService.getMessage("invalidId"),
-                    id
-            ));
+            throw new InvalidFieldException(String.format(resourceBundleService.getMessage("invalidId"), id));
         }
     }
 
@@ -45,8 +38,7 @@ public class EmployeeChecker {
                     position.getPosition(),
                     position.getSalaryMin(),
                     position.getSalaryMax(),
-                    salary
-            ));
+                    salary));
         }
     }
 

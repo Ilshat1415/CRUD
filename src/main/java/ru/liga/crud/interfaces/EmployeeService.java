@@ -1,5 +1,5 @@
 package ru.liga.crud.interfaces;
-
+//todo не оч название пакет. Множественное число. назови api
 import ru.liga.crud.entity.Employee;
 import ru.liga.crud.exception.InvalidFieldException;
 import ru.liga.crud.exception.NullEmployeeException;

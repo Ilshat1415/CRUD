@@ -12,8 +12,7 @@ import ru.liga.crud.type.Position;
 @Service
 @RequiredArgsConstructor
 public class ValidatorServiceImpl implements ValidatorService {
-    //todo добавить интерфейс и ис пользователь через интерфейс
-    // done
+
     private final EmployeeChecker employeeChecker = new EmployeeChecker();
 
     public void validate(Employee employee) throws InvalidFieldException, NullEmployeeException {

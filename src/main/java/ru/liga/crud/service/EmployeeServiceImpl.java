@@ -13,8 +13,6 @@ import ru.liga.crud.interfaces.ValidatorService;
 @Service
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
-    //todo добавить интерфейс и ис пользователь через интерфейс
-    // done
     private final EmployeeChecker employeeChecker = new EmployeeChecker();
     private final EmployeeRepository employeeRepository;
     private final ValidatorService validatorService;
