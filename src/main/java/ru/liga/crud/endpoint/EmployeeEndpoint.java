@@ -8,9 +8,8 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import ru.liga.crud.entity.Employee;
-import ru.liga.crud.exception.InvalidFieldException;
-import ru.liga.crud.exception.NullEmployeeException;
-import ru.liga.crud.interfaces.EmployeeService;
+import ru.liga.crud.exception.ValidationException;
+import ru.liga.crud.api.EmployeeService;
 import ru.soap.interfaces.*;
 
 
@@ -38,7 +37,7 @@ public class EmployeeEndpoint {
             serviceStatus.setStatus(STATUS_SUCCESS);
             serviceStatus.setMessage("Employee added");
 
-        } catch (InvalidFieldException | NullEmployeeException e) {
+        } catch (ValidationException e) {
             serviceStatus.setStatus(STATUS_PROBLEM);
             serviceStatus.setMessage(e.getMessage());
         }
@@ -62,7 +61,7 @@ public class EmployeeEndpoint {
             serviceStatus.setStatus(STATUS_SUCCESS);
             serviceStatus.setMessage("Employee found");
 
-        } catch (InvalidFieldException e) {
+        } catch (ValidationException e) {
             serviceStatus.setStatus(STATUS_PROBLEM);
             serviceStatus.setMessage(e.getMessage());
         }
@@ -87,7 +86,7 @@ public class EmployeeEndpoint {
             serviceStatus.setStatus(STATUS_SUCCESS);
             serviceStatus.setMessage("Employee updated");
 
-        } catch (InvalidFieldException | NullEmployeeException e) {
+        } catch (ValidationException e) {
             serviceStatus.setStatus(STATUS_PROBLEM);
             serviceStatus.setMessage(e.getMessage());
         }
@@ -109,7 +108,7 @@ public class EmployeeEndpoint {
             serviceStatus.setStatus(STATUS_SUCCESS);
             serviceStatus.setMessage("Employee removed");
 
-        } catch (InvalidFieldException e) {
+        } catch (ValidationException e) {
             serviceStatus.setStatus(STATUS_PROBLEM);
             serviceStatus.setMessage(e.getMessage());
         }

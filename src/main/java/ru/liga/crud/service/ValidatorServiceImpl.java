@@ -4,9 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.liga.crud.checker.EmployeeChecker;
 import ru.liga.crud.entity.Employee;
-import ru.liga.crud.exception.InvalidFieldException;
-import ru.liga.crud.exception.NullEmployeeException;
-import ru.liga.crud.interfaces.ValidatorService;
+import ru.liga.crud.exception.ValidationException;
+import ru.liga.crud.api.ValidatorService;
 import ru.liga.crud.type.Position;
 
 @Service
@@ -15,7 +14,7 @@ public class ValidatorServiceImpl implements ValidatorService {
 
     private final EmployeeChecker employeeChecker = new EmployeeChecker();
 
-    public void validate(Employee employee) throws InvalidFieldException, NullEmployeeException {
+    public void validate(Employee employee) throws ValidationException {
         employeeChecker.checkEmployeeForNull(employee);
 
         employeeChecker.checkRequiredFields(employee);

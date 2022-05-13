@@ -2,8 +2,7 @@ package ru.liga.crud.checker;
 
 import lombok.RequiredArgsConstructor;
 import ru.liga.crud.entity.Employee;
-import ru.liga.crud.exception.InvalidFieldException;
-import ru.liga.crud.exception.NullEmployeeException;
+import ru.liga.crud.exception.ValidationException;
 import ru.liga.crud.service.ResourceBundleService;
 import ru.liga.crud.type.Position;
 
@@ -11,29 +10,29 @@ import ru.liga.crud.type.Position;
 public class EmployeeChecker {
     private static final ResourceBundleService resourceBundleService = new ResourceBundleService();
 
-    public void checkEmployeeForNull(Employee employee) throws NullEmployeeException {
+    public void checkEmployeeForNull(Employee employee) throws ValidationException {
         if (employee == null) {
-            throw new NullEmployeeException(resourceBundleService.getMessage("invalidEmployee"));
+            throw new ValidationException(resourceBundleService.getMessage("invalidEmployee"));
         }
     }
 
-    public void checkId(Long id, Employee employee) throws InvalidFieldException {
+    public void checkId(Long id, Employee employee) throws ValidationException {
         if (employee == null) {
-            throw new InvalidFieldException(String.format(resourceBundleService.getMessage("invalidId"), id));
+            throw new ValidationException(String.format(resourceBundleService.getMessage("invalidId"), id));
         }
     }
 
-    public void checkRequiredFields(Employee employee) throws InvalidFieldException {
+    public void checkRequiredFields(Employee employee) throws ValidationException {
         if (employee.getFirstName() == null
                 || employee.getLastName() == null
                 || employee.getPosition() == null) {
-            throw new InvalidFieldException(resourceBundleService.getMessage("invalidRequiredFields"));
+            throw new ValidationException(resourceBundleService.getMessage("invalidRequiredFields"));
         }
     }
 
-    public void checkSalary(Position position, int salary) throws InvalidFieldException {
+    public void checkSalary(Position position, int salary) throws ValidationException {
         if (salary < position.getSalaryMin() || salary > position.getSalaryMax()) {
-            throw new InvalidFieldException(String.format(
+            throw new ValidationException(String.format(
                     resourceBundleService.getMessage("invalidSalary"),
                     position.getPosition(),
                     position.getSalaryMin(),
@@ -42,31 +41,31 @@ public class EmployeeChecker {
         }
     }
 
-    public void checkTesterFields(Employee employee) throws InvalidFieldException {
+    public void checkTesterFields(Employee employee) throws ValidationException {
         if (employee.getNumberOfSubordinates() != null || employee.getProgrammingLanguage() != null) {
-            throw new InvalidFieldException(resourceBundleService.getMessage("invalidTesterFields"));
+            throw new ValidationException(resourceBundleService.getMessage("invalidTesterFields"));
         }
     }
 
-    public void checkDeveloperFields(Employee employee) throws InvalidFieldException {
+    public void checkDeveloperFields(Employee employee) throws ValidationException {
         if (employee.getNumberOfSubordinates() != null || employee.getProgrammingLanguage() == null) {
-            throw new InvalidFieldException(resourceBundleService.getMessage("invalidDeveloperFields"));
+            throw new ValidationException(resourceBundleService.getMessage("invalidDeveloperFields"));
         }
     }
 
-    public void checkTeamLeadFields(Employee employee) throws InvalidFieldException {
+    public void checkTeamLeadFields(Employee employee) throws ValidationException {
         if (employee.getProgrammingLanguage() != null
                 || employee.getTelephoneNumber() == null
                 || employee.getNumberOfSubordinates() == null) {
-            throw new InvalidFieldException(resourceBundleService.getMessage("invalidTeamLeadFields"));
+            throw new ValidationException(resourceBundleService.getMessage("invalidTeamLeadFields"));
         }
     }
 
-    public void checkManagerFields(Employee employee) throws InvalidFieldException {
+    public void checkManagerFields(Employee employee) throws ValidationException {
         if (employee.getProgrammingLanguage() != null
                 || employee.getTelephoneNumber() == null
                 || employee.getEmail() == null) {
-            throw new InvalidFieldException(resourceBundleService.getMessage("invalidManagerFields"));
+            throw new ValidationException(resourceBundleService.getMessage("invalidManagerFields"));
         }
     }
 }

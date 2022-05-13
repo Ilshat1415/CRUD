@@ -2,7 +2,7 @@ package ru.liga.crud.type;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import ru.liga.crud.exception.InvalidFieldException;
+import ru.liga.crud.exception.ValidationException;
 import ru.liga.crud.service.ResourceBundleService;
 
 @Getter
@@ -19,7 +19,7 @@ public enum Position {
 
     private static final ResourceBundleService resourceBundleService = new ResourceBundleService();
 
-    public static Position getValue(String position) throws InvalidFieldException {
+    public static Position getValue(String position) throws ValidationException {
         if (TESTER.position.equals(position)) {
             return TESTER;
         } else if (DEVELOPER.position.equals(position)) {
@@ -29,7 +29,7 @@ public enum Position {
         } else if (MANAGER.position.equals(position)) {
             return MANAGER;
         } else {
-            throw new InvalidFieldException(String.format(
+            throw new ValidationException(String.format(
                     resourceBundleService.getMessage("invalidPosition"),
                     position
             ));
