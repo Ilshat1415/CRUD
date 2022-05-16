@@ -41,6 +41,16 @@ public class EmployeeChecker {
         }
     }
 
+    public void checkNumberTasks(Position position, int size) throws ValidationException {
+        if (size > position.getNumberTasksMax()) {
+            throw new ValidationException(String.format(
+                    resourceBundleService.getMessage("invalidNumberTasks"),
+                    position.getPosition(),
+                    position.getNumberTasksMax(),
+                    size));
+        }
+    }
+
     public void checkTesterFields(Employee employee) throws ValidationException {
         if (employee.getNumberOfSubordinates() != null || employee.getProgrammingLanguage() != null) {
             throw new ValidationException(resourceBundleService.getMessage("invalidTesterFields"));

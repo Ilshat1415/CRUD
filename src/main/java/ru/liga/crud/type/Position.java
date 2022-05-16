@@ -8,14 +8,15 @@ import ru.liga.crud.service.ResourceBundleService;
 @Getter
 @RequiredArgsConstructor
 public enum Position {
-    TESTER("Tester", 25000, 150000),
-    DEVELOPER("Developer", 40000, 400000),
-    TEAM_LEAD("Team_Lead", 150000, 400000),
-    MANAGER("Manager", 180000, 300000);
+    TESTER("Tester", 25000, 150000, 3),
+    DEVELOPER("Developer", 40000, 400000, 3),
+    TEAM_LEAD("Team_Lead", 150000, 400000, 5),
+    MANAGER("Manager", 180000, 300000, 5);
 
     private final String position;
     private final int salaryMin;
     private final int salaryMax;
+    private final int numberTasksMax;
 
     private static final ResourceBundleService resourceBundleService = new ResourceBundleService();
 

@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,4 +29,12 @@ public class Employee {
     @Column(name = "number_of_subordinates")
     private String numberOfSubordinates;
     private String email;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "employee_tasks",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "task_uuid")
+    )
+    private List<Task> tasks = new ArrayList<>();
 }
