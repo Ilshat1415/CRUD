@@ -43,8 +43,7 @@ public class EmployeeController {
             responseEmployee.setStatus(Status.PROBLEM.name());
             responseEmployee.setMessage(e.getMessage());
 
-            log.debug("Exception {}. Attempt to find an employee. Message: {}",
-                    e, e.getMessage());
+            log.debug("Exception {}. Attempt to find an employee. Message: {}", e, e.getMessage());
         }
 
         return new ResponseEntity<>(responseEmployee, HttpStatus.OK);
@@ -68,8 +67,7 @@ public class EmployeeController {
                 responseEmployee.setStatus(Status.PROBLEM.name());
                 responseEmployee.setMessage(e.getMessage());
 
-                log.debug("Exception {}. Attempt to create an employee. Message: {}",
-                        e, e.getMessage());
+                log.debug("Exception {}. Attempt to create an employee. Message: {}", e, e.getMessage());
             }
             responseEmployees.add(responseEmployee);
         }
@@ -93,8 +91,7 @@ public class EmployeeController {
             responseEmployee.setStatus(Status.PROBLEM.name());
             responseEmployee.setMessage(e.getMessage());
 
-            log.debug("Exception {}. Attempt to update an employee. Message: {}",
-                    e, e.getMessage());
+            log.debug("Exception {}. Attempt to update an employee. Message: {}", e, e.getMessage());
         }
         return new ResponseEntity<>(responseEmployee, HttpStatus.OK);
     }
@@ -116,8 +113,7 @@ public class EmployeeController {
             responseEmployee.setStatus(Status.PROBLEM.name());
             responseEmployee.setMessage(e.getMessage());
 
-            log.debug("Exception {}. Attempt to delete an employee. Message: {}",
-                    e, e.getMessage());
+            log.debug("Exception {}. Attempt to delete an employee. Message: {}", e, e.getMessage());
         }
         return new ResponseEntity<>(responseEmployee, HttpStatus.OK);
     }

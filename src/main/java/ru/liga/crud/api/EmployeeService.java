@@ -1,6 +1,5 @@
 package ru.liga.crud.api;
-//todo не оч название пакет. Множественное число. назови api
-// done
+
 import ru.liga.crud.entity.Employee;
 import ru.liga.crud.exception.ValidationException;
 
