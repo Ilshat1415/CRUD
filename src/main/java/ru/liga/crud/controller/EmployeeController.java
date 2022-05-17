@@ -64,6 +64,7 @@ public class EmployeeController {
                 log.debug("Employee with id = {} added", employee.getId());
 
             } catch (ValidationException e) {
+                responseEmployee.setEmployee(employee);
                 responseEmployee.setStatus(Status.PROBLEM.name());
                 responseEmployee.setMessage(e.getMessage());
 
@@ -88,6 +89,7 @@ public class EmployeeController {
             log.debug("Employee with id = {} updated", employee.getId());
 
         } catch (ValidationException e) {
+            responseEmployee.setEmployee(employee);
             responseEmployee.setStatus(Status.PROBLEM.name());
             responseEmployee.setMessage(e.getMessage());
 

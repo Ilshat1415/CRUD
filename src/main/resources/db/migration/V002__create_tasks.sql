@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS tasks
+(
+    uuid VARCHAR(36) NOT NULL PRIMARY KEY,
+    description TEXT NOT NULL
+);

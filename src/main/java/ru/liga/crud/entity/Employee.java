@@ -1,5 +1,6 @@
 package ru.liga.crud.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +22,7 @@ public class Employee {
     @Column(name = "last_name")
     private String lastName;
     private String position;
-    private int salary;
+    private String salary;
     @Column(name = "telephone_number")
     private String telephoneNumber;
     @Column(name = "programming_language")
@@ -37,4 +38,12 @@ public class Employee {
             inverseJoinColumns = @JoinColumn(name = "task_uuid")
     )
     private List<Task> tasks = new ArrayList<>();
+
+    @Transient
+    @JsonIgnore
+    private boolean isValid = true;
+
+    public void isNotValid() {
+        this.isValid = false;
+    }
 }

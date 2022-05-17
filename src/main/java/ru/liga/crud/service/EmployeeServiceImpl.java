@@ -39,7 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee updateEmployee(Employee employee) throws ValidationException {
-        deleteEmployee(employee.getId());
+        findById(employee.getId());
         return saveEmployee(employee);
     }
 
