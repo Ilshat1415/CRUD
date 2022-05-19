@@ -1,4 +1,5 @@
 package ru.liga.crud.service;
+//todo помести сервисы кафки в отдельный пакет внутри service
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class ProducerService {
     public void produce(Employee employee) {
         log.info("The produce got employee: {}", employee);
 
-        kafkaTemplate.send(topicAdd, UUID.randomUUID().toString(), employee);
+        kafkaTemplate.send(topicAdd, UUID.randomUUID().toString(), employee); //todo погоди, а как отслеживать каждую отдельную таску в кафке, если тут рандом ?
         kafkaTemplate.flush();
 
         log.debug("Topic posted");

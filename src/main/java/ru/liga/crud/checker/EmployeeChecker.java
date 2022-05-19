@@ -39,7 +39,7 @@ public class EmployeeChecker {
             employee.setLastName(resourceBundleService.getMessage("fieldIsNull"));
             employee.isNotValid();
 
-        } else if (employee.getLastName().length() > 50) {
+        } else if (employee.getLastName().length() > 50) { //todo волшебная цифра)) сделай константой
             employee.setLastName(resourceBundleService.getMessage("invalidLength"));
             employee.isNotValid();
         }
@@ -71,8 +71,7 @@ public class EmployeeChecker {
         } catch (NumberFormatException e) {
             employee.setSalary(String.format(
                     resourceBundleService.getMessage("notNumber"),
-                    employee.getSalary()
-            ));
+                    employee.getSalary()));
 
             employee.isNotValid();
         }

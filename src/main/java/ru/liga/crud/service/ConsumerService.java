@@ -1,5 +1,5 @@
 package ru.liga.crud.service;
-
+//todo помести сервисы кафки в отдельный пакет внутри service
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
