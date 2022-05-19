@@ -57,7 +57,7 @@ public class EmployeeController {
         for (Employee employee : employees) {
             ResponseEmployee responseEmployee = new ResponseEmployee();
             try {
-                responseEmployee.setEmployee(employeeService.saveEmployee(employee));
+                employeeService.saveEmployee(employee);
                 responseEmployee.setStatus(Status.SUCCESS.name());
                 responseEmployee.setMessage("Employee added");
 

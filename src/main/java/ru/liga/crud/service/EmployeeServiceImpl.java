@@ -17,6 +17,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeChecker employeeChecker = new EmployeeChecker();
     private final EmployeeRepository employeeRepository;
     private final ValidatorService validatorService;
+    private final ProducerService producerService;
 
     @Override
     public List<Employee> findAll() {
@@ -32,15 +33,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee saveEmployee(Employee employee) throws ValidationException {
+    public void saveEmployee(Employee employee) throws ValidationException {
         validatorService.validate(employee);
-        return employeeRepository.save(employee);
+        producerService.produce(employee);
     }
 
     @Override
     public Employee updateEmployee(Employee employee) throws ValidationException {
         findById(employee.getId());
-        return saveEmployee(employee);
+        validatorService.validate(employee);
+        return employeeRepository.save(employee);
     }
 
     @Override

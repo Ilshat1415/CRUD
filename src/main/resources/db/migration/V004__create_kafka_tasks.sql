@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS kafka_tasks
+(
+    id SERIAL PRIMARY KEY,
+    uuid VARCHAR(36) NOT NULL
+);

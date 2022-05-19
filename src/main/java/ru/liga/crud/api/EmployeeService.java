@@ -9,7 +9,7 @@ public interface EmployeeService {
     List<Employee> findAll();
     Employee findById(Long id) throws ValidationException;
 
-    Employee saveEmployee(Employee employee) throws ValidationException;
+    void saveEmployee(Employee employee) throws ValidationException;
 
     Employee updateEmployee(Employee employee) throws ValidationException;
 
