@@ -28,8 +28,6 @@ public class EmployeeChecker {
             employee.isNotValid();
 
         } else if (employee.getLastName().length() > FIELD_LENGTH) {
-            //todo волшебная цифра)) сделай константой
-            // done
             employee.setLastName(resourceBundleService.getMessage("invalidLength"));
             employee.isNotValid();
         }
