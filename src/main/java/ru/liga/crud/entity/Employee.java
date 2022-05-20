@@ -16,9 +16,11 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Employee {
     @Id
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String uuid;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")

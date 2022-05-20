@@ -7,9 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.liga.crud.api.EmployeeService;
 import ru.liga.crud.entity.Employee;
-import ru.liga.crud.exception.ValidationException;
 import ru.liga.crud.response.ResponseEmployee;
-import ru.liga.crud.type.Status;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,26 +25,10 @@ public class EmployeeController {
         return new ResponseEntity<>(employeeService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseEmployee> getEmployee(@PathVariable Long id) {
-        log.info("GET request received with parameter = {}", id);
-
-        ResponseEmployee responseEmployee = new ResponseEmployee();
-        try {
-            responseEmployee.setEmployee(employeeService.findById(id));
-            responseEmployee.setStatus(Status.SUCCESS.name());
-            responseEmployee.setMessage("Employee found");
-
-            log.debug("Employee with id = {} found", id);
-
-        } catch (ValidationException e) {
-            responseEmployee.setStatus(Status.PROBLEM.name());
-            responseEmployee.setMessage(e.getMessage());
-
-            log.debug("Exception {}. Attempt to find an employee. Message: {}", e, e.getMessage());
-        }
-
-        return new ResponseEntity<>(responseEmployee, HttpStatus.OK);
+    @GetMapping("/{uuid}")
+    public ResponseEntity<ResponseEmployee> getEmployee(@PathVariable String uuid) {
+        log.info("GET request received with parameter = {}", uuid);
+        return new ResponseEntity<>(employeeService.findByUuid(uuid), HttpStatus.OK);
     }
 
     @PostMapping("/add")
@@ -55,22 +37,7 @@ public class EmployeeController {
 
         List<ResponseEmployee> responseEmployees = new ArrayList<>();
         for (Employee employee : employees) {
-            ResponseEmployee responseEmployee = new ResponseEmployee();
-            try {
-                employeeService.saveEmployee(employee);
-                responseEmployee.setStatus(Status.SUCCESS.name());
-                responseEmployee.setMessage("Employee added");
-
-                log.debug("Employee with id = {} added", employee.getId());
-
-            } catch (ValidationException e) {
-                responseEmployee.setEmployee(employee);
-                responseEmployee.setStatus(Status.PROBLEM.name());
-                responseEmployee.setMessage(e.getMessage());
-
-                log.debug("Exception {}. Attempt to create an employee. Message: {}", e, e.getMessage());
-            }
-            responseEmployees.add(responseEmployee);
+            responseEmployees.add(employeeService.saveEmployee(employee));
         }
 
         return new ResponseEntity<>(responseEmployees, HttpStatus.OK);
@@ -79,44 +46,12 @@ public class EmployeeController {
     @PostMapping("/update")
     public ResponseEntity<ResponseEmployee> updateEmployee(@RequestBody Employee employee) {
         log.info("POST request received with parameter = {}", employee);
-
-        ResponseEmployee responseEmployee = new ResponseEmployee();
-        try {
-            responseEmployee.setEmployee(employeeService.updateEmployee(employee));
-            responseEmployee.setStatus(Status.SUCCESS.name());
-            responseEmployee.setMessage("Employee updated");
-
-            log.debug("Employee with id = {} updated", employee.getId());
-
-        } catch (ValidationException e) {
-            responseEmployee.setEmployee(employee);
-            responseEmployee.setStatus(Status.PROBLEM.name());
-            responseEmployee.setMessage(e.getMessage());
-
-            log.debug("Exception {}. Attempt to update an employee. Message: {}", e, e.getMessage());
-        }
-        return new ResponseEntity<>(responseEmployee, HttpStatus.OK);
+        return new ResponseEntity<>(employeeService.updateEmployee(employee), HttpStatus.OK);
     }
 
-    @PostMapping("/{id}/delete")
-    public ResponseEntity<ResponseEmployee> deleteEmployee(@PathVariable Long id) {
-        log.info("POST request received with parameter = {}", id);
-
-        ResponseEmployee responseEmployee = new ResponseEmployee();
-        try {
-            employeeService.deleteEmployee(id);
-
-            responseEmployee.setStatus(Status.SUCCESS.name());
-            responseEmployee.setMessage("Employee removed");
-
-            log.debug("Employee with id = {} removed", id);
-
-        } catch (ValidationException e) {
-            responseEmployee.setStatus(Status.PROBLEM.name());
-            responseEmployee.setMessage(e.getMessage());
-
-            log.debug("Exception {}. Attempt to delete an employee. Message: {}", e, e.getMessage());
-        }
-        return new ResponseEntity<>(responseEmployee, HttpStatus.OK);
+    @PostMapping("/{uuid}/delete")
+    public ResponseEntity<ResponseEmployee> deleteEmployee(@PathVariable String uuid) {
+        log.info("POST request received with parameter = {}", uuid);
+        return new ResponseEntity<>(employeeService.deleteEmployee(uuid), HttpStatus.OK);
     }
 }

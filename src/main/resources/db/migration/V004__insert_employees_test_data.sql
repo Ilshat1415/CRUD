@@ -1,0 +1,17 @@
+INSERT INTO employees (uuid, first_name, last_name, position, salary, telephone_number,
+                       programming_language, number_of_subordinates, email)
+VALUES ('a827c569-a65a-4b67-a9ba-84bafb302b03', 'Сергей', 'Цветков', 'Tester', 50000, null, null, null, null),
+       ('36650421-a1d7-4742-bb32-88f3bb617da3', 'Егор', 'Максимов', 'Developer', 100000, null, 'Java', null, null),
+       ('9938f0b8-d4c8-4893-ae3a-7ff66a441cd2', 'Дмитрий', 'Федоров', 'Tester', 65000, null, null, null, null),
+       ('2b6bacf9-0f56-416c-aaa8-a29b36292c1a', 'Демид', 'Никитин', 'Developer', 110000, null, 'Kotlin', null, null),
+       ('c5a6c71f-357a-41a2-8a65-38fd2777a078', 'Савва', 'Ефремов', 'TeamLead', 150000, '+71111111111', null, 4, null),
+       ('e80edaf3-0779-401c-b09f-d4eea3f25ac9', 'Андрей', 'Жуков', 'Manager', 200000, '71111111112', null, null,
+        'test1@mail.ru'),
+       ('3df728de-43b8-4e04-aff2-904ae0f61bf5', 'Александр', 'Басов', 'Tester', 80000, null, null, null, null),
+       ('9a7a41bb-4731-46b3-bd0c-46a55c74ed98', 'Егор', 'Васильев', 'Developer', 130000, null, 'PHP', null, null),
+       ('65fba15a-14bd-43a6-b3e6-7763dc2adfab', 'Кирилл', 'Бирюков', 'Tester', 75000, null, null, null, null),
+       ('79fcc3e9-445a-4243-b327-b77f2adb046c', 'Максим', 'Добрынин', 'Developer', 125000, null, 'Kotlin', null, null),
+       ('ed9aae06-2a79-4f88-9e56-73022ba91279', 'Роман', 'Ковалев', 'Developer', 150000, null, 'Java', null, null),
+       ('118f1ed5-53d5-46eb-b1d3-3f346e6df17b', 'Кирилл', 'Тихонов', 'TeamLead', 160000, '+71111111113', null, 5, null),
+       ('43fd917b-59bb-4887-a55c-d8cafd354b73', 'Фёдор', 'Скворцов', 'Manager', 210000, '71111111114', null, null,
+        'test2@mail.ru');

@@ -12,4 +12,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     @Modifying
     @Query("DELETE FROM Employee e WHERE e.id = (SELECT MIN(id) FROM Employee)")
     void deleteOldId();
+
+    boolean existsByUuid(String key);
+
+    Employee findByUuid(String uuid);
 }

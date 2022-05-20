@@ -3,7 +3,6 @@ package ru.liga.crud.type;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import ru.liga.crud.entity.Employee;
-import ru.liga.crud.exception.ValidationException;
 import ru.liga.crud.service.ResourceBundleService;
 
 @Getter
@@ -21,7 +20,7 @@ public enum Position {
 
     private static final ResourceBundleService resourceBundleService = new ResourceBundleService();
 
-    public static Position getValue(Employee employee) throws ValidationException {
+    public static Position getValue(Employee employee) {
         String position = employee.getPosition();
 
         if (TESTER.position.equals(position)) {
@@ -32,13 +31,18 @@ public enum Position {
             return TEAM_LEAD;
         } else if (MANAGER.position.equals(position)) {
             return MANAGER;
+        }
+
+        if (position == null) {
+            employee.setPosition(resourceBundleService.getMessage("fieldIsNull"));
+
         } else {
             employee.setPosition(String.format(
                     resourceBundleService.getMessage("invalidPosition"),
                     position
             ));
-
-            throw new ValidationException();
         }
+
+        return null;
     }
 }

@@ -3,32 +3,20 @@ package ru.liga.crud.checker;
 import lombok.RequiredArgsConstructor;
 import ru.liga.crud.entity.Employee;
 import ru.liga.crud.entity.Task;
-import ru.liga.crud.exception.ValidationException;
 import ru.liga.crud.service.ResourceBundleService;
 import ru.liga.crud.type.Position;
 
 @RequiredArgsConstructor
 public class EmployeeChecker {
     private static final ResourceBundleService resourceBundleService = new ResourceBundleService();
-
-    public void checkEmployeeForNull(Employee employee) throws ValidationException {
-        if (employee == null) {
-            throw new ValidationException(resourceBundleService.getMessage("invalidEmployee"));
-        }
-    }
-
-    public void checkId(Long id, Employee employee) throws ValidationException {
-        if (employee == null) {
-            throw new ValidationException(String.format(resourceBundleService.getMessage("invalidId"), id));
-        }
-    }
+    private static final int FIELD_LENGTH = 50;
 
     public void checkFirstName(Employee employee) {
         if (employee.getFirstName() == null) {
             employee.setFirstName(resourceBundleService.getMessage("fieldIsNull"));
             employee.isNotValid();
 
-        } else if (employee.getFirstName().length() > 50) {
+        } else if (employee.getFirstName().length() > FIELD_LENGTH) {
             employee.setFirstName(resourceBundleService.getMessage("invalidLength"));
             employee.isNotValid();
         }
@@ -39,17 +27,11 @@ public class EmployeeChecker {
             employee.setLastName(resourceBundleService.getMessage("fieldIsNull"));
             employee.isNotValid();
 
-        } else if (employee.getLastName().length() > 50) { //todo волшебная цифра)) сделай константой
+        } else if (employee.getLastName().length() > FIELD_LENGTH) {
+            //todo волшебная цифра)) сделай константой
+            // done
             employee.setLastName(resourceBundleService.getMessage("invalidLength"));
             employee.isNotValid();
-        }
-    }
-
-    public void checkPosition(Employee employee) throws ValidationException {
-        if (employee.getPosition() == null) {
-            employee.setPosition(resourceBundleService.getMessage("fieldIsNull"));
-
-            throw new ValidationException();
         }
     }
 
@@ -99,17 +81,9 @@ public class EmployeeChecker {
         employee.setEmail(fieldIsNull(employee.getEmail(), employee));
     }
 
-    public void checkTasks(Employee employee, Position position) throws ValidationException {
+    public void checkTasks(Employee employee) {
         for (Task task : employee.getTasks()) {
             task.setDescription(fieldIsNull(task.getDescription(), employee));
-        }
-
-        if (employee.getTasks().size() > position.getNumberTasksMax()) {
-            throw new ValidationException(String.format(
-                    resourceBundleService.getMessage("invalidNumberTasks"),
-                    position.getPosition(),
-                    position.getNumberTasksMax(),
-                    employee.getTasks().size()));
         }
     }
 

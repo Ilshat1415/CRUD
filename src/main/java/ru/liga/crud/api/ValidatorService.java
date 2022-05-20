@@ -1,9 +1,9 @@
 package ru.liga.crud.api;
 
 import ru.liga.crud.entity.Employee;
-import ru.liga.crud.exception.ValidationException;
+import ru.liga.crud.response.ResponseEmployee;
 
 public interface ValidatorService {
 
-    void validate(Employee employee) throws ValidationException;
+    ResponseEmployee validate(Employee employee);
 }
