@@ -18,12 +18,19 @@
             <maxHistory>5</maxHistory>
             <totalSizeCap>10MB</totalSizeCap>
         </rollingPolicy>
-        <encoder>
-            <pattern>%d{HH:mm:ss.SSS}  %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ru.liga.crud.support.MaskingPatternLayout">
+                <maskPattern>['"]?salary['"]?\s*[:=]\s*['"]?(.*?)['",; ]</maskPattern> <!-- Salary pattern -->
+                <maskPattern>['"]?telephoneNumber['"]?\s*[:=]\s*['"]?(.*?)['",; ]</maskPattern> <!-- TelephoneNumber pattern -->
+                <maskPattern>(\w+@\w+\.\w+)</maskPattern> <!-- Email pattern -->
+                <maskPattern>["']?password["']?\s*[:=]\s*["']?(.*?)["',; ]</maskPattern> <!-- Password pattern -->
+                <maskPattern>["']?jwtToken["']?\s*[:=]\s*["']?(.*?)["',; ]</maskPattern> <!-- JwtToken pattern -->
+                <pattern>%d{HH:mm:ss.SSS}  %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+            </layout>
         </encoder>
     </appender>
 
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
     </root>
