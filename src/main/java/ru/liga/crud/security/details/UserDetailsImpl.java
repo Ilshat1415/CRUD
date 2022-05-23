@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 @RequiredArgsConstructor
-public class UserDetailsImpl implements UserDetails {
+public class UserDetailsImpl implements UserDetails { //todo перенсти в support
     private static final String ROLE_NAME = "USER";
     private final User user;
 

@@ -10,7 +10,7 @@ import ru.liga.crud.repository.UserRepository;
 
 @Service(value = "customUserDetailsService")
 @RequiredArgsConstructor
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService { //todo перенести в основной пакет service
     private final UserRepository userRepository;
 
     @Override

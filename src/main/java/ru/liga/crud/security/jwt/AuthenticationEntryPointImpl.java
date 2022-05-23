@@ -26,8 +26,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
     public void commence(
             HttpServletRequest request,
             HttpServletResponse response,
-            AuthenticationException authException
-    ) throws IOException {
+            AuthenticationException authException) throws IOException {
         log.debug("Exception message: {}", authException.getMessage(), authException);
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "accounts", uniqueConstraints = @UniqueConstraint(columnNames = "user_name"))
-public class User {
+public class User { //todo лучше оперировать название классов, как и таблиц)) Так уменьшается вероятность запутать с сущностях 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

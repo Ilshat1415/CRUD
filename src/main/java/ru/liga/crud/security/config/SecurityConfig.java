@@ -18,7 +18,7 @@ import ru.liga.crud.security.jwt.JwtFilter;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter { //todo перенсти в основной пакет config
     private static final String LOGIN_ENDPOINT = "/login";
     @Qualifier("customUserDetailsService")
     private final UserDetailsService userDetailsService;
@@ -29,8 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public SecurityConfig(
             UserDetailsService userDetailsService,
             AuthenticationEntryPoint authenticationEntryPoint,
-            JwtFilter jwtFilter
-    ) {
+            JwtFilter jwtFilter) {
         this.userDetailsService = userDetailsService;
         this.authenticationEntryPoint = authenticationEntryPoint;
         this.jwtFilter = jwtFilter;
