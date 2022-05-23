@@ -4,17 +4,31 @@ import ch.qos.logback.classic.PatternLayout;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
 public class MaskingPatternLayout extends PatternLayout {
-    private Pattern multilinePattern;
-    private final List<String> maskPatterns = new ArrayList<>();
+    private final static String SALARY_PATTERN = "['\"]?salary['\"]?\\s*[:=]\\s*['\"]?(.*?)['\",; ]";
+    private final static String TELEPHONE_NUMBER_PATTERN = "['\"]?telephoneNumber['\"]?\\s*[:=]\\s*['\"]?(.*?)['\",; ]";
+    private final static String EMAIL_PATTERN = "(\\w+@\\w+\\.\\w+)";
+    private final static String PASSWORD_PATTERN = "[\"']?password[\"']?\\s*[:=]\\s*[\"']?(.*?)[\"',; ]";
+    private final static String JWT_TOKEN_PATTERN = "[\"']?jwtToken[\"']?\\s*[:=]\\s*[\"']?(.*?)[\"',; ]";
+    private final Pattern multilinePattern;
 
-    public void addMaskPattern(String maskPattern) {
-        maskPatterns.add(maskPattern);
+    public MaskingPatternLayout() {
+        List<String> maskPatterns = new ArrayList<>();
+        Collections.addAll(
+                maskPatterns,
+                SALARY_PATTERN,
+                TELEPHONE_NUMBER_PATTERN,
+                EMAIL_PATTERN,
+                PASSWORD_PATTERN,
+                JWT_TOKEN_PATTERN
+        );
+
         multilinePattern = Pattern.compile(
                 String.join("|", maskPatterns),
                 Pattern.MULTILINE

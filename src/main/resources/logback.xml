@@ -1,13 +1,15 @@
 <configuration>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
-<!--            <level>INFO</level>-->
-<!--            <onMatch>ACCEPT</onMatch>-->
-<!--            <onMismatch>DENY</onMismatch>-->
-<!--        </filter>-->
-        <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        <!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+        <!--            <level>INFO</level>-->
+        <!--            <onMatch>ACCEPT</onMatch>-->
+        <!--            <onMismatch>DENY</onMismatch>-->
+        <!--        </filter>-->
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ru.liga.crud.support.MaskingPatternLayout">
+                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            </layout>
         </encoder>
     </appender>
 
@@ -20,12 +22,12 @@
         </rollingPolicy>
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
             <layout class="ru.liga.crud.support.MaskingPatternLayout">
-                <maskPattern>['"]?salary['"]?\s*[:=]\s*['"]?(.*?)['",; ]</maskPattern> <!-- Salary pattern -->
-                <maskPattern>['"]?telephoneNumber['"]?\s*[:=]\s*['"]?(.*?)['",; ]</maskPattern> <!-- TelephoneNumber pattern -->
-                <maskPattern>(\w+@\w+\.\w+)</maskPattern> <!-- Email pattern -->
-                <maskPattern>["']?password["']?\s*[:=]\s*["']?(.*?)["',; ]</maskPattern> <!-- Password pattern -->
-                <maskPattern>["']?jwtToken["']?\s*[:=]\s*["']?(.*?)["',; ]</maskPattern> <!-- JwtToken pattern -->
-                <pattern>%d{HH:mm:ss.SSS}  %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+                <!--                <maskPattern>['"]?salary['"]?\s*[:=]\s*['"]?(.*?)['",; ]</maskPattern> &lt;!&ndash; Salary pattern &ndash;&gt;-->
+                <!--                <maskPattern>['"]?telephoneNumber['"]?\s*[:=]\s*['"]?(.*?)['",; ]</maskPattern> &lt;!&ndash; TelephoneNumber pattern &ndash;&gt;-->
+                <!--                <maskPattern>(\w+@\w+\.\w+)</maskPattern> &lt;!&ndash; Email pattern &ndash;&gt;-->
+                <!--                <maskPattern>["']?password["']?\s*[:=]\s*["']?(.*?)["',; ]</maskPattern> &lt;!&ndash; Password pattern &ndash;&gt;-->
+                <!--                <maskPattern>["']?jwtToken["']?\s*[:=]\s*["']?(.*?)["',; ]</maskPattern> &lt;!&ndash; JwtToken pattern &ndash;&gt;-->
+                <pattern>%d{HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
             </layout>
         </encoder>
     </appender>
