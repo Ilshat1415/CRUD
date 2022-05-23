@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.liga.crud.entity.User;
 import ru.liga.crud.response.JwtResponse;
-import ru.liga.crud.security.jwt.JwtUtils;
+import ru.liga.crud.jwt.JwtUtils;
 
 @RestController
 @RequiredArgsConstructor

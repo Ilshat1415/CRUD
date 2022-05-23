@@ -8,8 +8,10 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "accounts", uniqueConstraints = @UniqueConstraint(columnNames = "user_name"))
-public class User { //todo лучше оперировать название классов, как и таблиц)) Так уменьшается вероятность запутать с сущностях 
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "user_name"))
+public class User {
+    //todo лучше оперировать название классов, как и таблиц)) Так уменьшается вероятность запутать с сущностях
+    // done
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

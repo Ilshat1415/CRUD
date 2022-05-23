@@ -1,4 +1,4 @@
-package ru.liga.crud.security.details;
+package ru.liga.crud.support;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,7 +10,9 @@ import java.util.Collection;
 import java.util.Collections;
 
 @RequiredArgsConstructor
-public class UserDetailsImpl implements UserDetails { //todo перенсти в support
+public class UserDetailsImpl implements UserDetails {
+    //todo перенсти в support
+    // done
     private static final String ROLE_NAME = "USER";
     private final User user;
 

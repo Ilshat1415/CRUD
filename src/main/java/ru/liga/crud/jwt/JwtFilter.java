@@ -1,4 +1,4 @@
-package ru.liga.crud.security.jwt;
+package ru.liga.crud.jwt;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

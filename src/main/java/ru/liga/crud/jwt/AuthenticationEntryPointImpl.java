@@ -1,4 +1,4 @@
-package ru.liga.crud.security.jwt;
+package ru.liga.crud.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;

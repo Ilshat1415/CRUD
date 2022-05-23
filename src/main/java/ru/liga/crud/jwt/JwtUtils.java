@@ -1,4 +1,4 @@
-package ru.liga.crud.security.jwt;
+package ru.liga.crud.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -11,7 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
-import ru.liga.crud.security.details.UserDetailsImpl;
+import ru.liga.crud.support.UserDetailsImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;

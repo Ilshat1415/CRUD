@@ -1,4 +1,4 @@
-package ru.liga.crud.security.config;
+package ru.liga.crud.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -14,11 +14,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import ru.liga.crud.security.jwt.JwtFilter;
+import ru.liga.crud.jwt.JwtFilter;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter { //todo перенсти в основной пакет config
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    //todo перенсти в основной пакет config
+    // done
     private static final String LOGIN_ENDPOINT = "/login";
     @Qualifier("customUserDetailsService")
     private final UserDetailsService userDetailsService;
