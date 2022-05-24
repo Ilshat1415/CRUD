@@ -19,8 +19,7 @@ import ru.liga.crud.jwt.JwtFilter;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    //todo перенсти в основной пакет config
-    // done
+
     private static final String LOGIN_ENDPOINT = "/login";
     @Qualifier("customUserDetailsService")
     private final UserDetailsService userDetailsService;

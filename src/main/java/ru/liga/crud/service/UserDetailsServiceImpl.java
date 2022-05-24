@@ -12,8 +12,6 @@ import ru.liga.crud.support.UserDetailsImpl;
 @Service(value = "customUserDetailsService")
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
-    //todo перенести в основной пакет service
-    // done
     private final UserRepository userRepository;
 
     @Override
