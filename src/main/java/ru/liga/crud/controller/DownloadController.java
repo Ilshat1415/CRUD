@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/download")
+@RequestMapping("/download") //todo зачем еще доп контроллер, если есть целевой для employee
 @RequiredArgsConstructor
 public class DownloadController {
     private final PdfCreationService pdfCreationService;
@@ -27,7 +27,7 @@ public class DownloadController {
     public ResponseEntity<ResponseEmployee> getPdfByUuid(
             @PathVariable String uuid,
             HttpServletResponse response
-    ) throws IOException {
+    ) throws IOException { //todo оч странные переносы)) так какого смысла в них нет
         ResponseEmployee responseEmployee = employeeService.findByUuid(uuid);
         if (responseEmployee.getEmployee() != null) {
             pdfCreationService.printPdf(responseEmployee.getEmployee(), response);
