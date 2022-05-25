@@ -2,13 +2,17 @@ package ru.liga.crud.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.liga.crud.api.EmployeeService;
 import ru.liga.crud.entity.Employee;
 import ru.liga.crud.response.ResponseEmployee;
+import ru.liga.crud.service.PdfCreationService;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EmployeeController {
     private final EmployeeService employeeService;
+    private final PdfCreationService pdfCreationService;
 
     @GetMapping
     public ResponseEntity<List<Employee>> getEmployees() {
@@ -29,6 +34,28 @@ public class EmployeeController {
     public ResponseEntity<ResponseEmployee> getEmployee(@PathVariable String uuid) {
         log.info("GET request received with parameter = {}", uuid);
         return new ResponseEntity<>(employeeService.findByUuid(uuid), HttpStatus.OK);
+    }
+
+    @GetMapping("/{uuid}/download")
+    //todo зачем еще доп контроллер, если есть целевой для employee
+    // done, удалил его лишний контроллер, туду перес сюда, чтоб не потерялось
+    public ResponseEntity<ResponseEmployee> getPdfByUuid(@PathVariable String uuid, HttpServletResponse response) {
+        //todo оч странные переносы)) так какого смысла в них нет
+        // done
+        log.info("GET request received with parameter = {}", uuid);
+
+        ResponseEmployee responseEmployee = employeeService.findByUuid(uuid);
+        if (responseEmployee.getEmployee() != null) {
+            pdfCreationService.printPdf(responseEmployee.getEmployee(), response);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.parseMediaType("application/pdf"));
+
+            return new ResponseEntity<>(headers, HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>(responseEmployee, HttpStatus.OK);
+        }
     }
 
     @PostMapping("/add")
