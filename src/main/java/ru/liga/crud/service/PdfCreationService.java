@@ -42,8 +42,11 @@ public class PdfCreationService {
             document.open();
             document.add(createParagraph());
             document.add(createListForEmployee(employee));
-            document.add(new Paragraph("Tasks: ", fontTasks));
-            document.add(createTasksList(employee));
+
+            if (!employee.getTasks().isEmpty()) {
+                document.add(new Paragraph("Tasks: ", fontTasks));
+                document.add(createTasksList(employee));
+            }
 
         } catch (DocumentException | IOException e) {
             log.error(e.getMessage(), e);
