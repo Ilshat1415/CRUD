@@ -46,23 +46,23 @@ services:
     depends_on:
       - zookeeper
 
-  app:
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile
-    networks:
-      - kafka-net
-    environment:
-      PORT: "8081"
-      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres/postgres"
-      SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS: kafka:9092
-      SPRING_KAFKA_PRODUCER_BOOTSTRAP_SERVERS: kafka:9092
-    image: ilshat1415/jenkins-images:0.1
-    ports:
-      - "8081:8081"
-    depends_on:
-      - postgres
-      - kafka
+#  app:
+##    build:
+##      context: ./
+##      dockerfile: Dockerfile
+#    networks:
+#      - kafka-net
+#    environment:
+#      PORT: "8081"
+#      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres/postgres"
+#      SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS: kafka:9092
+#      SPRING_KAFKA_PRODUCER_BOOTSTRAP_SERVERS: kafka:9092
+#    image: ilshat1415/jenkins-images:0.1
+#    ports:
+#      - "8081:8081"
+#    depends_on:
+#      - postgres
+#      - kafka
 
 volumes:
   db-data:
