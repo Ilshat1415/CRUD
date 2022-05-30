@@ -9,7 +9,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @SpringBootTest
-@Testcontainers
+@Testcontainers(disabledWithoutDocker = true)
 class CrudApplicationTests {
     @Container
     public static PostgreSQLContainer container = new PostgreSQLContainer("postgres:14.3")
