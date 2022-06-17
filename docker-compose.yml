@@ -11,7 +11,7 @@ services:
     networks:
       - kafka-net
     ports:
-      - "5435:5432"
+      - "5435:5435"
     environment:
       POSTGRES_DB: "postgres"
       POSTGRES_USER: "postgres"
@@ -46,7 +46,29 @@ services:
     depends_on:
       - zookeeper
 
-#  app:
+  eureka:
+    image: ilshat1415/eureka-server:0.1
+    networks:
+      - kafka-net
+    environment:
+      PORT: "8761"
+    ports:
+      - "8761:8761"
+
+  gateway-proxy:
+    image: ilshat1415/gateway-proxy:0.1
+    networks:
+      - kafka-net
+    environment:
+      PORT: "8080"
+      EUREKA_HOST: http://eureka:8761/eureka/
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka
+
+#  app1:
+#    image: ilshat1415/jenkins-images:0.4
 ##    build:
 ##      context: ./
 ##      dockerfile: Dockerfile
@@ -57,12 +79,17 @@ services:
 #      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres/postgres"
 #      SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS: kafka:9092
 #      SPRING_KAFKA_PRODUCER_BOOTSTRAP_SERVERS: kafka:9092
-#    image: ilshat1415/jenkins-images:0.1
-#    ports:
-#      - "8081:8081"
+#      EUREKA_HOST: http://eureka:8761/eureka/
+#    deploy:
+#      replicas: 2
+#      resources:
+#        limits:
+#          memory: 512m
+#          cpus: '0.50'
 #    depends_on:
 #      - postgres
 #      - kafka
+#      - eureka
 
 volumes:
   db-data:
