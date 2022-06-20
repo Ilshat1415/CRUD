@@ -35,8 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.jwtFilter = jwtFilter;
     }
 
-    @Override
     @Bean
+    @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }

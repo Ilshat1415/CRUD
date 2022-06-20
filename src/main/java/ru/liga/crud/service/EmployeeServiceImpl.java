@@ -32,16 +32,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     public ResponseEmployee findByUuid(String uuid) {
         if (employeeRepository.existsByUuid(uuid)) {
             log.debug("Employee with uuid = {} found", uuid);
-
             return ResponseEmployee.builder()
                     .status(Status.SUCCESS.name())
                     .message("Employee found")
                     .employee(employeeRepository.findByUuid(uuid))
                     .build();
-
         } else {
             log.debug("Employee with uuid = {} not found", uuid);
-
             return ResponseEmployee.builder()
                     .status(Status.PROBLEM.name())
                     .message(String.format(resourceBundleService.getMessage("invalidUuid"), uuid))
@@ -52,14 +49,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public ResponseEmployee saveEmployee(Employee employee) {
         ResponseEmployee responseEmployee = validatorService.validate(employee);
-
         if (employee.isValid()) {
             employee.setUuid(UUID.randomUUID().toString());
             producerService.produce(employee);
-
             log.debug("Employee with id = {} added", employee.getId());
         }
-
         return responseEmployee;
     }
 
@@ -69,7 +63,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         if (responseEmployee.getEmployee() == null) {
             return responseEmployee;
-
         } else {
             employee.setId(responseEmployee.getEmployee().getId());
         }
@@ -79,7 +72,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employee.isValid()) {
             employeeRepository.save(employee);
             responseEmployee.setMessage("Employee updated");
-
             log.debug("Employee with uuid = {} updated", employee.getUuid());
         }
 

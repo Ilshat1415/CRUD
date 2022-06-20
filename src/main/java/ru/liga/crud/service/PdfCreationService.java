@@ -29,7 +29,6 @@ public class PdfCreationService {
         if (baseFont != null) {
             fontFields = new Font(baseFont, Font.DEFAULTSIZE, Font.NORMAL);
         } else {
-
             fontFields = null;
         }
     }
@@ -47,13 +46,10 @@ public class PdfCreationService {
                 document.add(new Paragraph("Tasks: ", fontTasks));
                 document.add(createTasksList(employee));
             }
-
         } catch (DocumentException | IOException e) {
             log.error(e.getMessage(), e);
-
         } finally {
             document.close();
-
             log.info("PDF {} has been printed", document);
         }
     }
@@ -64,14 +60,12 @@ public class PdfCreationService {
 
             if (fullFontPath != null) {
                 return BaseFont.createFont(fullFontPath.toString(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-
             } else {
                 log.warn("Font {} not found, cyrillic support is not initialized", FONT_PATH);
             }
         } catch (DocumentException | IOException e) {
             log.error("Creating a new font. Message {}", e.getMessage(), e);
         }
-
         return null;
     }
 
@@ -106,7 +100,6 @@ public class PdfCreationService {
             tasksList.add(createListItem("UUID: ", task.getUuid()));
             tasksList.add(createListItem("Description: ", task.getDescription()));
         }
-
         return tasksList;
     }
 

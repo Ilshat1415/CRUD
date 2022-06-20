@@ -39,11 +39,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{uuid}/download")
-    //todo зачем еще доп контроллер, если есть целевой для employee
-    // done, удалил его лишний контроллер, туду перес сюда, чтоб не потерялось
     public ResponseEntity<ResponseEmployee> getPdfByUuid(@PathVariable String uuid, HttpServletResponse response) {
-        //todo оч странные переносы)) так какого смысла в них нет
-        // done
         log.info("GET request received with parameter = {}", uuid);
 
         ResponseEmployee responseEmployee = employeeService.findByUuid(uuid);

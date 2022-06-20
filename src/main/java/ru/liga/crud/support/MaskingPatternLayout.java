@@ -26,8 +26,7 @@ public class MaskingPatternLayout extends PatternLayout {
                 TELEPHONE_NUMBER_PATTERN,
                 EMAIL_PATTERN,
                 PASSWORD_PATTERN,
-                JWT_TOKEN_PATTERN
-        );
+                JWT_TOKEN_PATTERN);
 
         multilinePattern = Pattern.compile(
                 String.join("|", maskPatterns),
@@ -48,7 +47,7 @@ public class MaskingPatternLayout extends PatternLayout {
         Matcher matcher = multilinePattern.matcher(builder);
         while (matcher.find()) {
             IntStream.rangeClosed(1, matcher.groupCount()).forEach(group -> {
-                if (matcher.group(group) != null) {
+                if (matcher.group(group) != null) { //todo сделай приватный метод
                     IntStream.range(
                             matcher.start(group),
                             matcher.end(group)).forEach(i -> builder.setCharAt(i, '*')

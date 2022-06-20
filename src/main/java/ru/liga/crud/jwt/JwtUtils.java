@@ -62,18 +62,15 @@ public class JwtUtils {
             Jwts.parser()
                     .setSigningKey(secret)
                     .parseClaimsJws(jwt);
-
             return true;
         } catch (MalformedJwtException | IllegalArgumentException e) {
             log.error("JWT token is expired or invalid. Message: {}", e.getMessage(), e);
-
             return false;
         }
     }
 
     public Authentication getAuthentication(String jwtToken) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(getUserNameFromJwtToken(jwtToken));
-
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 

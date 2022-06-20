@@ -23,7 +23,7 @@ public enum Position {
     public static Position getValue(Employee employee) {
         String position = employee.getPosition();
 
-        if (TESTER.position.equals(position)) {
+        if (TESTER.position.equals(position)) { //todo приватный метод
             return TESTER;
         } else if (DEVELOPER.position.equals(position)) {
             return DEVELOPER;
@@ -33,14 +33,12 @@ public enum Position {
             return MANAGER;
         }
 
-        if (position == null) {
+        if (position == null) { //todo приватный метод
             employee.setPosition(resourceBundleService.getMessage("fieldIsNull"));
-
         } else {
             employee.setPosition(String.format(
                     resourceBundleService.getMessage("invalidPosition"),
-                    position
-            ));
+                    position));
         }
 
         return null;

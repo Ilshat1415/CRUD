@@ -92,7 +92,6 @@ public class ValidatorServiceImpl implements ValidatorService {
         employee.setTelephoneNumber(uncheckedField);
         employee.setEmail(uncheckedField);
 
-
         for (Task task : employee.getTasks()) {
             task.setDescription(uncheckedField);
         }

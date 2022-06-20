@@ -20,7 +20,6 @@ public class ConsumerService {
 
         if (!employeeRepository.existsByUuid(topic.key())) {
             employeeRepository.save(topic.value());
-
             log.debug("Employee {} added to database", topic.value());
         }
     }
