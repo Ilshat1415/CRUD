@@ -37,21 +37,21 @@ pipeline {
         }
         stage('Build docker image') {
             steps{
-                sh 'docker build -t ilshat1415/jenkins-images:0.4 .'
+                sh 'docker build -t ilshat1415/jenkins-images:0.5 .'
             }
         }
         stage('Push docker image to DockerHub') {
             steps{
                 withDockerRegistry(credentialsId: 'dockerhub-ilshat1415', url: 'https://index.docker.io/v1/') {
                     sh '''
-                        docker push ilshat1415/jenkins-images:0.4
+                        docker push ilshat1415/jenkins-images:0.5
                     '''
                 }
             }
         }
         stage('Delete docker image locally') {
             steps{
-                sh 'docker rmi ilshat1415/jenkins-images:0.4'
+                sh 'docker rmi ilshat1415/jenkins-images:0.5'
             }
         }
         stage('Deploy to staging') {
@@ -61,7 +61,7 @@ pipeline {
                         int n = Integer.parseInt("${params.INSTANCES}");
                         withCredentials([string(credentialsId: 'VM_IP', variable: 'IP')]) {
                             for (int i = 0; i < n; i++) {
-                                sh 'ssh -o StrictHostKeyChecking=no ilshat1415@${IP} docker run --network kafka-net -e PORT=8081 -e SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/postgres -e SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS=kafka:9092 -e SPRING_KAFKA_PRODUCER_BOOTSTRAP_SERVERS=kafka:9092 -e EUREKA_HOST=http://eureka:8761/eureka/ -v ${PWD}/logs:/logs -d --memory 512m ilshat1415/jenkins-images:0.4'
+                                sh 'ssh -o StrictHostKeyChecking=no ilshat1415@${IP} docker run --network kafka-net -e PORT=8081 -e SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/postgres -e SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS=kafka:9092 -e SPRING_KAFKA_PRODUCER_BOOTSTRAP_SERVERS=kafka:9092 -e EUREKA_HOST=http://eureka:8761/eureka/ -v ${PWD}/logs:/logs -d --memory 512m ilshat1415/jenkins-images:0.5'
                             }
                         }
                     }

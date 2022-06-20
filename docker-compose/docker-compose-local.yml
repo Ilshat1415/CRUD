@@ -1,0 +1,49 @@
+version: '3.9'
+
+networks:
+  postgres:
+    driver: local
+
+services:
+  postgres:
+    image: postgres:14.3
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+
+  zookeeper:
+    image: zookeeper:3.8.0
+    ports:
+      - "2181:2181"
+    depends_on:
+      - postgres
+
+  kafka:
+    image: obsidiandynamics/kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER_INTERNAL:PLAINTEXT,DOCKER_EXTERNAL:PLAINTEXT
+      KAFKA_LISTENERS: DOCKER_INTERNAL://:29092,DOCKER_EXTERNAL://:9092
+      KAFKA_ADVERTISED_LISTENERS: DOCKER_INTERNAL://kafka:29092,DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER_INTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_BROKER_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+
+  eureka:
+    image: ilshat1415/eureka-server:0.1
+    environment:
+      PORT: "8761"
+    ports:
+      - "8761:8761"
+
+volumes:
+  db-data:

@@ -19,8 +19,7 @@ import ru.liga.crud.jwt.JwtFilter;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private static final String LOGIN_ENDPOINT = "/login";
+    private static final String EMPLOYEES_ENDPOINT = "/employees/**";
     @Qualifier("customUserDetailsService")
     private final UserDetailsService userDetailsService;
     @Qualifier("customAuthenticationEntryPoint")
@@ -50,8 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(LOGIN_ENDPOINT).permitAll()
-                .anyRequest().authenticated()
+                .antMatchers(EMPLOYEES_ENDPOINT).authenticated()
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }

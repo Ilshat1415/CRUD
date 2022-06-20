@@ -11,7 +11,7 @@ services:
     networks:
       - kafka-net
     ports:
-      - "5435:5435"
+      - "5432:5432"
     environment:
       POSTGRES_DB: "postgres"
       POSTGRES_USER: "postgres"
@@ -38,7 +38,6 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER_INTERNAL:PLAINTEXT,DOCKER_EXTERNAL:PLAINTEXT
       KAFKA_LISTENERS: DOCKER_INTERNAL://:29092,DOCKER_EXTERNAL://:9092
       KAFKA_ADVERTISED_LISTENERS: DOCKER_INTERNAL://kafka:29092,DOCKER_EXTERNAL://kafka:9092
-#      KAFKA_ADVERTISED_LISTENERS: DOCKER_INTERNAL://kafka:29092,DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
       KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER_INTERNAL
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_BROKER_ID: 1
@@ -67,29 +66,29 @@ services:
     depends_on:
       - eureka
 
-#  app1:
-#    image: ilshat1415/jenkins-images:0.4
-##    build:
-##      context: ./
-##      dockerfile: Dockerfile
-#    networks:
-#      - kafka-net
-#    environment:
-#      PORT: "8081"
-#      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres/postgres"
-#      SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS: kafka:9092
-#      SPRING_KAFKA_PRODUCER_BOOTSTRAP_SERVERS: kafka:9092
-#      EUREKA_HOST: http://eureka:8761/eureka/
-#    deploy:
-#      replicas: 2
-#      resources:
-#        limits:
-#          memory: 512m
-#          cpus: '0.50'
-#    depends_on:
-#      - postgres
-#      - kafka
-#      - eureka
+  app1:
+    image: ilshat1415/jenkins-images:0.4
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+    networks:
+      - kafka-net
+    environment:
+      PORT: "8081"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres/postgres"
+      SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS: kafka:9092
+      SPRING_KAFKA_PRODUCER_BOOTSTRAP_SERVERS: kafka:9092
+      EUREKA_HOST: http://eureka:8761/eureka/
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          memory: 512m
+          cpus: '0.50'
+    depends_on:
+      - postgres
+      - kafka
+      - eureka
 
 volumes:
   db-data:
