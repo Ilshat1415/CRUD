@@ -43,19 +43,26 @@ public class MaskingPatternLayout extends PatternLayout {
         if (multilinePattern == null) {
             return message;
         }
+
         StringBuilder builder = new StringBuilder(message);
         Matcher matcher = multilinePattern.matcher(builder);
         while (matcher.find()) {
             IntStream.rangeClosed(1, matcher.groupCount()).forEach(group -> {
-                if (matcher.group(group) != null) { //todo сделай приватный метод
-                    IntStream.range(
-                            matcher.start(group),
-                            matcher.end(group)).forEach(i -> builder.setCharAt(i, '*')
-                    );
-                }
+                maskSymbol(builder, matcher, group);
             });
         }
         return builder.toString();
+    }
+
+    private void maskSymbol(StringBuilder builder, Matcher matcher, int group) {
+        if (matcher.group(group) != null) {
+            //todo сделай приватный метод
+            // done
+            IntStream.range(
+                    matcher.start(group),
+                    matcher.end(group)).forEach(i -> builder.setCharAt(i, '*')
+            );
+        }
     }
 
 }

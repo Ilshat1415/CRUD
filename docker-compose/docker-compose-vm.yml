@@ -66,29 +66,29 @@ services:
     depends_on:
       - eureka
 
-  app1:
-    image: ilshat1415/jenkins-images:0.4
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile
-    networks:
-      - kafka-net
-    environment:
-      PORT: "8081"
-      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres/postgres"
-      SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS: kafka:9092
-      SPRING_KAFKA_PRODUCER_BOOTSTRAP_SERVERS: kafka:9092
-      EUREKA_HOST: http://eureka:8761/eureka/
-    deploy:
-      replicas: 2
-      resources:
-        limits:
-          memory: 512m
-          cpus: '0.50'
-    depends_on:
-      - postgres
-      - kafka
-      - eureka
+#  app1:
+#    image: ilshat1415/jenkins-images:0.4
+##    build:
+##      context: ./
+##      dockerfile: Dockerfile
+#    networks:
+#      - kafka-net
+#    environment:
+#      PORT: "8081"
+#      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres/postgres"
+#      SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS: kafka:9092
+#      SPRING_KAFKA_PRODUCER_BOOTSTRAP_SERVERS: kafka:9092
+#      EUREKA_HOST: http://eureka:8761/eureka/
+#    deploy:
+#      replicas: 2
+#      resources:
+#        limits:
+#          memory: 512m
+#          cpus: '0.50'
+#    depends_on:
+#      - postgres
+#      - kafka
+#      - eureka
 
 volumes:
   db-data:

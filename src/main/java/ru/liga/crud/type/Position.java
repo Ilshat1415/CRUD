@@ -21,9 +21,33 @@ public enum Position {
     private static final ResourceBundleService resourceBundleService = new ResourceBundleService();
 
     public static Position getValue(Employee employee) {
-        String position = employee.getPosition();
+        String positionName = employee.getPosition();
 
-        if (TESTER.position.equals(position)) { //todo приватный метод
+        Position position = getPositionByName(positionName);
+        if (position != null) {
+            return position;
+        }
+
+        nullCheck(employee, positionName);
+        return null;
+    }
+
+    private static void nullCheck(Employee employee, String positionName) {
+        if (positionName == null) {
+            //todo приватный метод
+            // done
+            employee.setPosition(resourceBundleService.getMessage("fieldIsNull"));
+        } else {
+            employee.setPosition(String.format(
+                    resourceBundleService.getMessage("invalidPosition"),
+                    positionName));
+        }
+    }
+
+    private static Position getPositionByName(String position) {
+        if (TESTER.position.equals(position)) {
+            //todo приватный метод
+            // done
             return TESTER;
         } else if (DEVELOPER.position.equals(position)) {
             return DEVELOPER;
@@ -32,15 +56,6 @@ public enum Position {
         } else if (MANAGER.position.equals(position)) {
             return MANAGER;
         }
-
-        if (position == null) { //todo приватный метод
-            employee.setPosition(resourceBundleService.getMessage("fieldIsNull"));
-        } else {
-            employee.setPosition(String.format(
-                    resourceBundleService.getMessage("invalidPosition"),
-                    position));
-        }
-
         return null;
     }
 }

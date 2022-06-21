@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+
+    parameters {
+        imageTag(name: 'DOCKER_IMAGE', image: 'ilshat1415/jenkins-images')
+        choice(name: 'INSTANCES', choices: ['1', '2', '3', '4', '5'])
+    }
+
+    stages {
+        stage('Deploy to staging') {
+            steps {
+                sshagent(['ubuntu']) {
+                    script {
+                        int numberInstances = Integer.parseInt("${params.INSTANCES}");
+                        withCredentials([string(credentialsId: 'VM_LOGIN', variable: 'LOGIN'), string(credentialsId: 'VM_IP', variable: 'IP')]) {
+                            for (int i = 0; i < numberInstances; i++) {
+                                sh 'ssh -o StrictHostKeyChecking=no ${LOGIN}@${IP} docker run --network kafka-net -e PORT=8081 -e SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/postgres -e SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS=kafka:9092 -e SPRING_KAFKA_PRODUCER_BOOTSTRAP_SERVERS=kafka:9092 -e EUREKA_HOST=http://eureka:8761/eureka/ -v /home/${LOGIN}/logs:/logs -d --memory 512m ${DOCKER_IMAGE}'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    post {
+        success {
+            withCredentials([string(credentialsId: 'botToken', variable: 'TOKEN'), string(credentialsId: 'chatId', variable: 'CHAT_ID')]) {
+            sh """
+                curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*${env.JOB_NAME}*\n*Tag* : `${DOCKER_IMAGE_TAG}`\n*Build* : `OK`\n*Deploy* : `YES`'
+            """
+            }
+        }
+        aborted {
+            withCredentials([string(credentialsId: 'botToken', variable: 'TOKEN'), string(credentialsId: 'chatId', variable: 'CHAT_ID')]) {
+            sh """
+                curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*${env.JOB_NAME}*\n*Tag* : `${DOCKER_IMAGE_TAG}`\n*Build* : `ABORTED`\n*Deploy* : `ABORTED`'
+            """
+            }
+        }
+        failure {
+            withCredentials([string(credentialsId: 'botToken', variable: 'TOKEN'), string(credentialsId: 'chatId', variable: 'CHAT_ID')]) {
+            sh """
+                curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*${env.JOB_NAME}*\n*Tag* : `${DOCKER_IMAGE_TAG}`\n*Build* : `Not OK`\n*Deploy* : `NO`'
+            """
+            }
+        }
+    }
+}
