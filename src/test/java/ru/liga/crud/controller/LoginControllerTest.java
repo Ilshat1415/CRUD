@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import ru.liga.crud.initializer.InitializerForTest;
 import ru.liga.crud.entity.User;
 import ru.liga.crud.response.JwtResponse;
+import ru.liga.crud.testdata.UserTestData;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,10 +20,7 @@ class LoginControllerTest extends InitializerForTest {
 
     @Test
     void authUser_ValidUser_ValidToken() {
-        User validUser = new User();
-        validUser.setUserName("admin");
-        validUser.setPassword("admin");
-
+        User validUser = UserTestData.getValidUser();
         ResponseEntity<JwtResponse> responseEntity = loginController.authUser(validUser);
 
         assertThat(responseEntity.getStatusCode().is2xxSuccessful()).isTrue();
@@ -34,10 +32,7 @@ class LoginControllerTest extends InitializerForTest {
 
     @Test
     void authUser_InvalidUser_NullToken() {
-        User invalidUser = new User();
-        invalidUser.setUserName("test");
-        invalidUser.setPassword("test");
-
+        User invalidUser = UserTestData.getInvalidUser();
         ResponseEntity<JwtResponse> responseEntity = loginController.authUser(invalidUser);
 
         assertThat(responseEntity.getStatusCode().is2xxSuccessful()).isTrue();
