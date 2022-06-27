@@ -90,7 +90,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         responseEmployee.setMessage("Employee removed");
 
         log.debug("Employee with uuid = {} removed", uuid);
-
         return responseEmployee;
     }
 }

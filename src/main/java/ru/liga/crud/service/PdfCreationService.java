@@ -46,11 +46,12 @@ public class PdfCreationService {
                 document.add(new Paragraph("Tasks: ", fontTasks));
                 document.add(createTasksList(employee));
             }
+
+            log.info("PDF {} has been printed", document);
         } catch (DocumentException | IOException e) {
             log.error(e.getMessage(), e);
         } finally {
             document.close();
-            log.info("PDF {} has been printed", document);
         }
     }
 
