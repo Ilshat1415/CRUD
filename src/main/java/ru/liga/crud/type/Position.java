@@ -32,10 +32,8 @@ public enum Position {
         return null;
     }
 
-    private static void nullCheck(Employee employee, String positionName) {
+    private static void nullCheck(Employee employee, String positionName) { //todo не оч название. 1 непонятно что проверяется 2 название и реализация не согласованы (ожидаю увидедь чкерер, а по факту там установка значений идет)
         if (positionName == null) {
-            //todo приватный метод
-            // done
             employee.setPosition(resourceBundleService.getMessage("fieldIsNull"));
         } else {
             employee.setPosition(String.format(
@@ -46,8 +44,6 @@ public enum Position {
 
     private static Position getPositionByName(String position) {
         if (TESTER.position.equals(position)) {
-            //todo приватный метод
-            // done
             return TESTER;
         } else if (DEVELOPER.position.equals(position)) {
             return DEVELOPER;

@@ -14,7 +14,7 @@ import org.testcontainers.utility.DockerImageName;
 @SpringBootTest
 @ContextConfiguration(initializers = CrudInitializer.class)
 @EnableDiscoveryClient(autoRegister = false)
-public class CrudInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+public class CrudInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> { //todo название сбивает столку. То есть какой то Crud - что относиться к понятию БД
     public static final PostgreSQLContainer<?> postgresContainer =
             new PostgreSQLContainer<>("postgres:14.3");
     public static final KafkaContainer kafkaContainer =

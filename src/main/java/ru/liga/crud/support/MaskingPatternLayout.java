@@ -56,8 +56,6 @@ public class MaskingPatternLayout extends PatternLayout {
 
     private void maskSymbol(StringBuilder builder, Matcher matcher, int group) {
         if (matcher.group(group) != null) {
-            //todo сделай приватный метод
-            // done
             IntStream.range(
                     matcher.start(group),
                     matcher.end(group)).forEach(i -> builder.setCharAt(i, '*')
