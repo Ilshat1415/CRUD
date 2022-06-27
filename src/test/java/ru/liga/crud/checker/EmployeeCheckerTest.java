@@ -1,18 +1,18 @@
 package ru.liga.crud.checker;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static ru.liga.crud.testdata.EmployeeTestData.*;
+
 import org.junit.jupiter.api.Test;
 import ru.liga.crud.entity.Employee;
-import ru.liga.crud.testdata.EmployeeTestData;
 import ru.liga.crud.type.Position;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class EmployeeCheckerTest {
     private final EmployeeChecker employeeChecker = new EmployeeChecker();
 
     @Test
     void checkFirstName_ValidFirstName_True() {
-        Employee validEmployee = EmployeeTestData.getEmployeeWithValidName();
+        Employee validEmployee = getEmployeeWithValidName();
         employeeChecker.checkFirstName(validEmployee);
         assertThat(validEmployee.isValid()).isTrue();
     }
@@ -26,7 +26,7 @@ class EmployeeCheckerTest {
 
     @Test
     void checkLastName_ValidLastName_True() {
-        Employee validEmployee = EmployeeTestData.getEmployeeWithValidName();
+        Employee validEmployee = getEmployeeWithValidName();
         employeeChecker.checkLastName(validEmployee);
         assertThat(validEmployee.isValid()).isTrue();
     }
@@ -40,84 +40,84 @@ class EmployeeCheckerTest {
 
     @Test
     void checkSalary_ValidSalary_True() {
-        Employee validEmployee = EmployeeTestData.getEmployeeWithValidSalary();
+        Employee validEmployee = getEmployeeWithValidSalary();
         employeeChecker.checkSalary(validEmployee, Position.DEVELOPER);
         assertThat(validEmployee.isValid()).isTrue();
     }
 
     @Test
     void checkSalary_InvalidSalary_False() {
-        Employee invalidEmployee = EmployeeTestData.getEmployeeWithInvalidSalary();
+        Employee invalidEmployee = getEmployeeWithInvalidSalary();
         employeeChecker.checkSalary(invalidEmployee, Position.DEVELOPER);
         assertThat(invalidEmployee.isValid()).isFalse();
     }
 
     @Test
     void checkTesterFields_ValidTesterFields_True() {
-        Employee validTester = EmployeeTestData.getValidTester();
+        Employee validTester = getValidTester();
         employeeChecker.checkTesterFields(validTester);
         assertThat(validTester.isValid()).isTrue();
     }
 
     @Test
     void checkTesterFields_InvalidTesterFields_False() {
-        Employee invalidTester = EmployeeTestData.getInvalidTester();
+        Employee invalidTester = getInvalidTester();
         employeeChecker.checkTesterFields(invalidTester);
         assertThat(invalidTester.isValid()).isFalse();
     }
 
     @Test
     void checkDeveloperFields_ValidDeveloperFields_True() {
-        Employee validDeveloper = EmployeeTestData.getValidDeveloper();
+        Employee validDeveloper = getValidDeveloper();
         employeeChecker.checkDeveloperFields(validDeveloper);
         assertThat(validDeveloper.isValid()).isTrue();
     }
 
     @Test
     void checkDeveloperFields_InvalidDeveloperFields_False() {
-        Employee invalidDeveloper = EmployeeTestData.getInvalidDeveloper();
+        Employee invalidDeveloper = getInvalidDeveloper();
         employeeChecker.checkDeveloperFields(invalidDeveloper);
         assertThat(invalidDeveloper.isValid()).isFalse();
     }
 
     @Test
     void checkTeamLeadFields_ValidTeamLead_True() {
-        Employee validTeamLead = EmployeeTestData.getValidTeamLead();
+        Employee validTeamLead = getValidTeamLead();
         employeeChecker.checkTeamLeadFields(validTeamLead);
         assertThat(validTeamLead.isValid()).isTrue();
     }
 
     @Test
     void checkTeamLeadFields_InvalidTeamLead_False() {
-        Employee invalidTeamLead = EmployeeTestData.getInvalidTeamLead();
+        Employee invalidTeamLead = getInvalidTeamLead();
         employeeChecker.checkTeamLeadFields(invalidTeamLead);
         assertThat(invalidTeamLead.isValid()).isFalse();
     }
 
     @Test
     void checkManagerFields_ValidManager_True() {
-        Employee validManager = EmployeeTestData.getValidManager();
+        Employee validManager = getValidManager();
         employeeChecker.checkManagerFields(validManager);
         assertThat(validManager.isValid()).isTrue();
     }
 
     @Test
     void checkManagerFields_InvalidManager_False() {
-        Employee invalidManager = EmployeeTestData.getInvalidManager();
+        Employee invalidManager = getInvalidManager();
         employeeChecker.checkManagerFields(invalidManager);
         assertThat(invalidManager.isValid()).isFalse();
     }
 
     @Test
     void checkTasks_ValidTasks_True() {
-        Employee employee = EmployeeTestData.getEmployeeWithValidTask();
+        Employee employee = getEmployeeWithValidTask();
         employeeChecker.checkTasks(employee);
         assertThat(employee.isValid()).isTrue();
     }
 
     @Test
     void checkTasks_InvalidTasks_False() {
-        Employee employee = EmployeeTestData.getEmployeeWithInvalidTask();
+        Employee employee = getEmployeeWithInvalidTask();
         employeeChecker.checkTasks(employee);
         assertThat(employee.isValid()).isFalse();
     }

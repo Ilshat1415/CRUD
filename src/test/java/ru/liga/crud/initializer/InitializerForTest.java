@@ -14,9 +14,8 @@ import org.testcontainers.utility.DockerImageName;
 @SpringBootTest
 @ContextConfiguration(initializers = InitializerForTest.class)
 @EnableDiscoveryClient(autoRegister = false)
-public class InitializerForTest implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-    //todo название сбивает столку. То есть какой то Crud - что относиться к понятию БД
-    // done
+public class InitializerForTest
+        implements ApplicationContextInitializer<ConfigurableApplicationContext> {
     public static final PostgreSQLContainer<?> postgresContainer =
             new PostgreSQLContainer<>("postgres:14.3");
     public static final KafkaContainer kafkaContainer =
@@ -25,12 +24,14 @@ public class InitializerForTest implements ApplicationContextInitializer<Configu
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
         TestPropertyValues.of(
-                "spring.datasource.url=" + postgresContainer.getJdbcUrl(),
-                "spring.datasource.username=" + postgresContainer.getUsername(),
-                "spring.datasource.password=" + postgresContainer.getPassword(),
-                "spring.kafka.consumer.bootstrap-servers=" + kafkaContainer.getBootstrapServers(),
-                "spring.kafka.producer.bootstrap-servers=" + kafkaContainer.getBootstrapServers()
-        ).applyTo(applicationContext);
+                        "spring.datasource.url=" + postgresContainer.getJdbcUrl(),
+                        "spring.datasource.username=" + postgresContainer.getUsername(),
+                        "spring.datasource.password=" + postgresContainer.getPassword(),
+                        "spring.kafka.consumer.bootstrap-servers="
+                                + kafkaContainer.getBootstrapServers(),
+                        "spring.kafka.producer.bootstrap-servers="
+                                + kafkaContainer.getBootstrapServers())
+                .applyTo(applicationContext);
     }
 
     @BeforeAll
@@ -39,4 +40,3 @@ public class InitializerForTest implements ApplicationContextInitializer<Configu
         kafkaContainer.start();
     }
 }
-
