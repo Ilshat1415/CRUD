@@ -33,8 +33,6 @@ public enum Position {
     }
 
     private static void setMessageForPosition(Employee employee, String positionName) {
-        //todo не оч название. 1 непонятно что проверяется 2 название и реализация не согласованы (ожидаю увидедь чкерер, а по факту там установка значений идет)
-        // done
         if (positionName == null) {
             employee.setPosition(resourceBundleService.getMessage("fieldIsNull"));
         } else {

@@ -2,14 +2,14 @@ package ru.liga.crud.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.liga.crud.initializer.InitializerForTests;
+import ru.liga.crud.initializer.InitializerForTest;
 import ru.liga.crud.entity.Employee;
 import ru.liga.crud.response.ResponseEmployee;
 import ru.liga.crud.type.Status;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-class EmployeeServiceImplTest extends InitializerForTests {
+class EmployeeServiceImplTest extends InitializerForTest {
     private final static String UUID_TEST = "43fd917b-59bb-4887-a55c-d8cafd354b73";
     private final static String UUID_TEST_DELETE = "118f1ed5-53d5-46eb-b1d3-3f346e6df17b";
     private final EmployeeServiceImpl employeeService;

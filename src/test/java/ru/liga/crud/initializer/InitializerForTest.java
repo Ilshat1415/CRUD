@@ -12,9 +12,9 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 @SpringBootTest
-@ContextConfiguration(initializers = InitializerForTests.class)
+@ContextConfiguration(initializers = InitializerForTest.class)
 @EnableDiscoveryClient(autoRegister = false)
-public class InitializerForTests implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+public class InitializerForTest implements ApplicationContextInitializer<ConfigurableApplicationContext> {
     //todo название сбивает столку. То есть какой то Crud - что относиться к понятию БД
     // done
     public static final PostgreSQLContainer<?> postgresContainer =

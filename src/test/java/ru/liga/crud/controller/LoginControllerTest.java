@@ -3,13 +3,13 @@ package ru.liga.crud.controller;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import ru.liga.crud.initializer.InitializerForTests;
+import ru.liga.crud.initializer.InitializerForTest;
 import ru.liga.crud.entity.User;
 import ru.liga.crud.response.JwtResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class LoginControllerTest extends InitializerForTests {
+class LoginControllerTest extends InitializerForTest {
     private final LoginController loginController;
 
     @Autowired()
