@@ -11,7 +11,7 @@ class ValidatorServiceImplTest {
     private final ValidatorServiceImpl validatorService = new ValidatorServiceImpl();
 
     @Test
-    void validateValidEmployee() {
+    void validate_ValidEmployee_Success() {
         Employee employee = new Employee();
         employee.setFirstName("Tester");
         employee.setPosition("Tester");
@@ -23,8 +23,9 @@ class ValidatorServiceImplTest {
     }
 
     @Test
-    void validateInvalidEmployee() {
+    void validate_InvalidEmployee_Problem() {
         Employee employee = new Employee();
+
         ResponseEmployee responseEmployee = validatorService.validate(employee);
         assertThat(responseEmployee.getStatus()).isEqualTo(Status.PROBLEM.name());
     }

@@ -2,7 +2,7 @@ package ru.liga.crud.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.liga.crud.initializer.CrudInitializer;
+import ru.liga.crud.initializer.InitializerForTests;
 import ru.liga.crud.entity.Employee;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class EmployeeControllerTest extends CrudInitializer {
+class EmployeeControllerTest extends InitializerForTests {
     private final EmployeeController employeeController;
 
     @Autowired
@@ -20,7 +20,7 @@ class EmployeeControllerTest extends CrudInitializer {
     }
 
     @Test
-    void addMultipleEmployee() {
+    void addMultipleEmployee_Employees_True() {
         List<Employee> employees = new ArrayList<>();
         Collections.addAll(employees, new Employee(), new Employee(), new Employee());
 

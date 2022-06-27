@@ -12,9 +12,11 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 @SpringBootTest
-@ContextConfiguration(initializers = CrudInitializer.class)
+@ContextConfiguration(initializers = InitializerForTests.class)
 @EnableDiscoveryClient(autoRegister = false)
-public class CrudInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> { //todo название сбивает столку. То есть какой то Crud - что относиться к понятию БД
+public class InitializerForTests implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+    //todo название сбивает столку. То есть какой то Crud - что относиться к понятию БД
+    // done
     public static final PostgreSQLContainer<?> postgresContainer =
             new PostgreSQLContainer<>("postgres:14.3");
     public static final KafkaContainer kafkaContainer =

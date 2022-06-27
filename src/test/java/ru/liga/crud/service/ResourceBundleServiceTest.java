@@ -9,7 +9,14 @@ class ResourceBundleServiceTest {
     private final ResourceBundleService resourceBundleService = new ResourceBundleService();
 
     @Test
-    void getMessage() {
-        assertThat(resourceBundleService.getMessage("uncheckedField")).isEqualTo("Failed to validate due to invalid position");
+    void getMessage_ValidKey_NotEquals() {
+        assertThat(resourceBundleService.getMessage("uncheckedField"))
+                .isNotEqualTo(ResourceBundleService.KEY_IS_NULL);
+    }
+
+    @Test
+    void getMessage_EmptyKey_Equals() {
+        assertThat(resourceBundleService.getMessage(null))
+                .isEqualTo(ResourceBundleService.KEY_IS_NULL);
     }
 }

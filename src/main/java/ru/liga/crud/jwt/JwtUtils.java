@@ -1,5 +1,6 @@
 package ru.liga.crud.jwt;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -63,8 +64,8 @@ public class JwtUtils {
                     .setSigningKey(secret)
                     .parseClaimsJws(jwt);
             return true;
-        } catch (MalformedJwtException | IllegalArgumentException e) {
-            log.error("JWT token is expired or invalid. Message: {}", e.getMessage(), e);
+        } catch (MalformedJwtException | ExpiredJwtException e) {
+            log.info("JWT token is expired or invalid. Message: {}", e.getMessage());
             return false;
         }
     }

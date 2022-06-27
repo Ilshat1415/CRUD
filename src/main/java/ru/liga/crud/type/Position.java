@@ -26,13 +26,15 @@ public enum Position {
         Position position = getPositionByName(positionName);
         if (position != null) {
             return position;
+        } else {
+            setMessageForPosition(employee, positionName);
+            return null;
         }
-
-        nullCheck(employee, positionName);
-        return null;
     }
 
-    private static void nullCheck(Employee employee, String positionName) { //todo не оч название. 1 непонятно что проверяется 2 название и реализация не согласованы (ожидаю увидедь чкерер, а по факту там установка значений идет)
+    private static void setMessageForPosition(Employee employee, String positionName) {
+        //todo не оч название. 1 непонятно что проверяется 2 название и реализация не согласованы (ожидаю увидедь чкерер, а по факту там установка значений идет)
+        // done
         if (positionName == null) {
             employee.setPosition(resourceBundleService.getMessage("fieldIsNull"));
         } else {
